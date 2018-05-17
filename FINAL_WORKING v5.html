@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8' />
+    <title>Sports Participation in London</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.43.0/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.43.0/mapbox-gl.css' rel='stylesheet' />
+    <style>
+body { margin:0; padding:0; }
+#map { position:absolute; top:0; bottom:0; width:100%;}
+
+  .map-overlay {
+      font: 12px/20px 'Helvetica Neue', Arial, Helvetica,sans-serif;
+      position: fixed;
+      width: 280px;
+      top: 0;
+      left: 0;
+      padding: 10px;
+  }
+
+  .map-overlay .map-overlay-inner {
+      background-color: rgba(255, 255, 255, 0.7);
+      box-shadow:0 1px 2px rgba(255, 255, 255, 0.20);
+      border-radius: 10px;
+      padding: 10px;
+      margin-bottom: 10px;
+      color: black;
+  }
+
+  .key_fig {
+    background-color: #fff7fb;
+    border-style: solid
+    padding: 10px 24px;
+    border-radius: 8px;
+    color: black;
+    padding: 5px 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    fill-opacity: 0.7;
+    display: block;
+    border-color: black;
+}
+.key_fig2 {background-color: #ece7f2; fill-opacity: 0.7;} 
+.key_fig3 {background-color: #d0d1e6; fill-opacity: 0.7;}
+.key_fig4 {background-color: #a6bddb; fill-opacity: 0.7;}
+.key_fig5 {background-color: #74a9cf; fill-opacity: 0.7;}
+.key_fig6 {background-color: #3690c0; fill-opacity: 0.7;}
+.key_fig7 {background-color: #0570b0; fill-opacity: 0.7;}
+.key_fig8 {background-color: #045a8d; fill-opacity: 0.7;}
+.key_fig9 {background-color: #023858; fill-opacity: 0.7;}
+
+
+.Key {
+      font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+      position: fixed;
+      display: block;
+      bottom: 0;
+      right: 0;
+      background-color: rgba(136,136,136, 0.80);
+      box-shadow:0 1px 2px rgba(255, 255, 255, 0.20);
+      border-radius: 10px;
+      padding: 5px;
+      margin-right: 10px;
+      margin-bottom: 20px;
+      color: black;}
+
+.Description-Box {
+      font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+      position: fixed;
+      bottom: 0;
+      left: 400px;
+      right: 300px;
+      background-color: rgba(255, 255, 255, 0.80);
+      box-shadow:0 1px 2px rgba(255, 255, 255, 0.20);
+      border-radius: 10px;
+      padding: 5px;
+      margin-bottom: 10px;
+      color: black;
+
+    </style>
+</head>
+<body>
+
+
+<div id='map'></div>
+
+<div class='map-overlay top'>
+    <div class='map-overlay-inner'>
+        <h2>Sports Participation in London</h2>
+        <p style="margin-top:0px;">The following data has been extracted from sport england and outlines levels of participation in sports under different demographics.</p>
+
+      <h2>Age</h2>
+      <input type="radio" name="layers" id="layer3" value="2005_16_25"><label>2005 16-25 years &nbsp; &nbsp;</label> 
+      <input type="radio" name="layers" id="layer1" value="2015_16_25"><label>2015 16-25 years </label>
+      <br>
+      <input type="radio" name="layers" id="layer4" value="2005_45_54"><label>2005 45-54 years </label>
+      <input type="radio" name="layers" id="layer2" value="2015_45_54"><label>2015 45-54 years </label>
+      <h2>Ethnicity</h2>
+      <input type="radio" name="layers" id="layer5" value="2005_White"><label> 2005  White </label>
+      <input type="radio" name="layers" id="layer6" value="2005_BAME"><label> 2005  BAME </label>
+      <br>
+      <input type="radio" name="layers" id="layer7" value="2015_White"><label> 2015 White </label>
+     <input type="radio" name="layers" id="layer8" value="2015_BAME"><label> 2015 BAME </label>
+     <h2>Gender</h2>
+     <input type="radio" name="layers" id="layer9" value="2014_M_Act"><label>2014 Male Active</label>
+     <input type="radio" name="layers" id="layer10" value="2014_F_Act"><label>2014 Female Active</label>
+     <br>
+     <input type="radio" name="layers" id="layer11" value="2014_M_Ina"><label>2014 M Inactive</label>
+     <input type="radio" name="layers" id="layer12" value="2014_F_Ina"><label>2014 Female Inactive</label>
+     <br>
+     <input type="radio" name="layers" id="layer13" value="1516_M_1x3"><label>2015 Male 1x30 sessions per week</label>
+     <br>
+     <input type="radio" name="layers" id="layer14" value="1516_F_1x3"><label>2015 Female 1x30 sessions per week</label>
+     <br>
+     <input type="radio" name="layers" id="layer15" value="1516_M_3x3"><label>2015 Male 3x30 sessions per week</label>
+     <br>
+     <input type="radio" name="layers" id="layer16" value="1516_F_3x3"><label>2015 Female 3x30 sessions per week</label>
+    <img src="http://craigwhittakermp.co.uk/wp-content/uploads/2017/12/Sport20England.jpg" style="width:100%;height:50%;image-rendering:-webkit-optimize-contrast;" >
+         <p class="credit">Data: Sport England Active People Survey. Cartography: <a href="https://data.london.gov.uk/dataset/statistical-gis-boundary-files-london">London Datastore</a>.</p>
+</div>
+</div>
+</div>
+<div class='Key'>
+        <center><h2>Key</h2></center>
+    <center><button class='key_fig'> No Data</button></center> 
+    <center><button class='key_fig key_fig2'>  <  10%  </button></center>
+    <button class='key_fig key_fig3'> 11% - 20% </button>
+    <button class='key_fig key_fig4'> 21% - 30% </button>
+    <button class='key_fig key_fig5'> 31% - 40% </button>
+    <button class='key_fig key_fig6'> 41% - 50% </button>
+    <button class='key_fig key_fig7'> 51% - 60% </button> 
+    <button class='key_fig key_fig8'> 61% - 70% </button>  
+    <button class='key_fig key_fig9'> 71% - 80% </button>      
+    </div>
+
+    <div class='Description-Box'>
+        <h2>Key Notes</h2>
+        <p style="margin-top:0px;"> <label id='narrative'>In 2005 Islington has the lowest participation for 16-26 years old at 67%, whereas Righmond upon Thames, Kingson upon thames and Sutton have the highest at 67%, 66% and 60% respectively.</p></label>
+    </div>
+
+    <script>
+
+
+    mapboxgl.accessToken = 'pk.eyJ1IjoiaGFubmFoZ3VtYmxlIiwiYSI6ImNqY2oweWtibDJzbmszM3JxemlncXo5ZDAifQ.h-gteOJJaIq4GxkctofuOg'; // Put your Mapbox Public Access token here
+
+    // Load a new map in the 'map' HTML div
+    var map = new mapboxgl.Map({
+    container: 'map', // container id
+    style: 'mapbox://styles/hannahgumble/cjh8wym0o2ht02smwx2k99cex', // stylesheet location
+    center: [-0.163, 51.439], // starting position [lng, lat]
+    zoom: 9.1 // starting zoom
+    });
+
+
+    map.on('load', function() {
+      map.addControl(new mapboxgl.NavigationControl());
+
+    // Load the participation data
+      map.addLayer({
+        id: '2015_16_25',
+        type: 'fill',
+        source: {
+          type: 'vector',
+          url: 'mapbox://hannahgumble.334cze9r' // Your Mapbox tileset Map ID
+        },
+        'source-layer': 'Sports_Data-bzkfs7', // name of tilesets
+          'paint': {
+            'fill-color':{
+            property: '2015_16_25',
+            type: 'interval',
+            stops: [
+                [0.0, '#fff7fb'],
+                [0.1, '#ece7f2'],
+                [0.2, '#d0d1e6'],
+                [0.3, '#a6bddb'],
+                [0.4, '#74a9cf'],
+                [0.5, '#3690c0'],
+                [0.6, '#0570b0'],
+                [0.7, '#045a8d'],
+                [0.8, '#023858'],
+                ]
+                },
+            'fill-opacity': 0.7,
+             }
+            }
+      );
+
+      map.addLayer({
+        id: '2015_45_54',
+        type: 'fill',
+        source: {
+          type: 'vector',
+          url: 'mapbox://hannahgumble.334cze9r' // Your Mapbox tileset Map ID
+        },
+        'source-layer': 'Sports_Data-bzkfs7', // name of tilesets
+          'paint': {
+            'fill-color':{
+            property: '2015_45_54',
+            type: 'interval',
+            stops: [
+                [0.0, '#fff7fb'],
+                [0.1, '#ece7f2'],
+                [0.2, '#d0d1e6'],
+                [0.3, '#a6bddb'],
+                [0.4, '#74a9cf'],
+                [0.5, '#3690c0'],
+                [0.6, '#0570b0'],
+                [0.7, '#045a8d'],
+                [0.8, '#023858'],
+                ]
+                },
+            'fill-opacity': 0.7,
+             }
+            }
+      );
+      map.addLayer({
+        id: '2005_16_25',
+        type: 'fill',
+        source: {
+          type: 'vector',
+          url: 'mapbox://hannahgumble.334cze9r' // Your Mapbox tileset Map ID
+        },
+        'source-layer': 'Sports_Data-bzkfs7', // name of tilesets
+          'paint': {
+            'fill-color':{
+            property: '2005_16_25',
+            type: 'interval',
+            stops: [
+                [0.0, '#fff7fb'],
+                [0.1, '#ece7f2'],
+                [0.2, '#d0d1e6'],
+                [0.3, '#a6bddb'],
+                [0.4, '#74a9cf'],
+                [0.5, '#3690c0'],
+                [0.6, '#0570b0'],
+                [0.7, '#045a8d'],
+                [0.8, '#023858'],
+                ]
+                },
+            'fill-opacity': 0.7,
+             }
+            }
+      );
+      map.addLayer({
+        id: '2005_45_54',
+        type: 'fill',
+        source: {
+          type: 'vector',
+          url: 'mapbox://hannahgumble.334cze9r' // Your Mapbox tileset Map ID
+        },
+        'source-layer': 'Sports_Data-bzkfs7', // name of tilesets
+          'paint': {
+            'fill-color':{
+            property: '2005_45_54',
+            type: 'interval',
+            stops: [
+                [0.0, '#fff7fb'],
+                [0.1, '#ece7f2'],
+                [0.2, '#d0d1e6'],
+                [0.3, '#a6bddb'],
+                [0.4, '#74a9cf'],
+                [0.5, '#3690c0'],
+                [0.6, '#0570b0'],
+                [0.7, '#045a8d'],
+                [0.8, '#023858'],
+                ]
+                },
+            'fill-opacity': 0.7,
+             }
+            }
+      );
+      map.addLayer({
+        id: '2005_White',
+        type: 'fill',
+        source: {
+          type: 'vector',
+          url: 'mapbox://hannahgumble.334cze9r' // Your Mapbox tileset Map ID
+        },
+        'source-layer': 'Sports_Data-bzkfs7', // name of tilesets
+          'paint': {
+            'fill-color':{
+            property: '2005_White',
+            type: 'interval',
+            stops: [
+                [0.0, '#fff7fb'],
+                [0.1, '#ece7f2'],
+                [0.2, '#d0d1e6'],
+                [0.3, '#a6bddb'],
+                [0.4, '#74a9cf'],
+                [0.5, '#3690c0'],
+                [0.6, '#0570b0'],
+                [0.7, '#045a8d'],
+                [0.8, '#023858'],
+                ]
+                },
+            'fill-opacity': 0.7,
+             }
+            }
+      );
+      map.addLayer({
+        id: '2005_BAME',
+        type: 'fill',
+        source: {
+          type: 'vector',
+          url: 'mapbox://hannahgumble.334cze9r' // Your Mapbox tileset Map ID
+        },
+        'source-layer': 'Sports_Data-bzkfs7', // name of tilesets
+          'paint': {
+            'fill-color':{
+            property: '2005_BAME',
+            type: 'interval',
+            stops: [
+                [0.0, '#fff7fb'],
+                [0.1, '#ece7f2'],
+                [0.2, '#d0d1e6'],
+                [0.3, '#a6bddb'],
+                [0.4, '#74a9cf'],
+                [0.5, '#3690c0'],
+                [0.6, '#0570b0'],
+                [0.7, '#045a8d'],
+                [0.8, '#023858'],
+                ]
+                },
+            'fill-opacity': 0.7,
+             }
+            }
+      );
+      map.addLayer({
+        id: '2015_White',
+        type: 'fill',
+        source: {
+          type: 'vector',
+          url: 'mapbox://hannahgumble.334cze9r' // Your Mapbox tileset Map ID
+        },
+        'source-layer': 'Sports_Data-bzkfs7', // name of tilesets
+          'paint': {
+            'fill-color':{
+            property: '2015_White',
+            type: 'interval',
+            stops: [
+                [0.0, '#fff7fb'],
+                [0.1, '#ece7f2'],
+                [0.2, '#d0d1e6'],
+                [0.3, '#a6bddb'],
+                [0.4, '#74a9cf'],
+                [0.5, '#3690c0'],
+                [0.6, '#0570b0'],
+                [0.7, '#045a8d'],
+                [0.8, '#023858'],
+                ]
+                },
+            'fill-opacity': 0.7,
+             }
+            }
+      );
+      map.addLayer({
+        id: '2015_BAME',
+        type: 'fill',
+        source: {
+          type: 'vector',
+          url: 'mapbox://hannahgumble.334cze9r' // Your Mapbox tileset Map ID
+        },
+        'source-layer': 'Sports_Data-bzkfs7', // name of tilesets
+          'paint': {
+            'fill-color':{
+            property: '2015_BAME',
+            type: 'interval',
+            stops: [
+                [0.0, '#fff7fb'],
+                [0.1, '#ece7f2'],
+                [0.2, '#d0d1e6'],
+                [0.3, '#a6bddb'],
+                [0.4, '#74a9cf'],
+                [0.5, '#3690c0'],
+                [0.6, '#0570b0'],
+                [0.7, '#045a8d'],
+                [0.8, '#023858'],
+                ]
+                },
+            'fill-opacity': 0.7,
+             }
+            }
+      );
+      map.addLayer({
+        id: '2014_M_Act',
+        type: 'fill',
+        source: {
+          type: 'vector',
+          url: 'mapbox://hannahgumble.334cze9r' // Your Mapbox tileset Map ID
+        },
+        'source-layer': 'Sports_Data-bzkfs7', // name of tilesets
+          'paint': {
+            'fill-color':{
+            property: '2014_M_Act',
+            type: 'interval',
+            stops: [
+                [0.0, '#fff7fb'],
+                [0.1, '#ece7f2'],
+                [0.2, '#d0d1e6'],
+                [0.3, '#a6bddb'],
+                [0.4, '#74a9cf'],
+                [0.5, '#3690c0'],
+                [0.6, '#0570b0'],
+                [0.7, '#045a8d'],
+                [0.8, '#023858'],
+                ]
+                },
+            'fill-opacity': 0.7,
+             }
+            }
+      );
+      map.addLayer({
+        id: '2014_F_Act',
+        type: 'fill',
+        source: {
+          type: 'vector',
+          url: 'mapbox://hannahgumble.334cze9r' // Your Mapbox tileset Map ID
+        },
+        'source-layer': 'Sports_Data-bzkfs7', // name of tilesets
+          'paint': {
+            'fill-color':{
+            property: '2014_F_Act',
+            type: 'interval',
+            stops: [
+                [0.0, '#fff7fb'],
+                [0.1, '#ece7f2'],
+                [0.2, '#d0d1e6'],
+                [0.3, '#a6bddb'],
+                [0.4, '#74a9cf'],
+                [0.5, '#3690c0'],
+                [0.6, '#0570b0'],
+                [0.7, '#045a8d'],
+                [0.8, '#023858'],
+                ]
+                },
+            'fill-opacity': 0.7,
+             }
+            }
+      );
+      map.addLayer({
+        id: '2014_M_Ina',
+        type: 'fill',
+        source: {
+          type: 'vector',
+          url: 'mapbox://hannahgumble.334cze9r' // Your Mapbox tileset Map ID
+        },
+        'source-layer': 'Sports_Data-bzkfs7', // name of tilesets
+          'paint': {
+            'fill-color':{
+            property: '2014_M_Ina',
+            type: 'interval',
+            stops: [
+                [0.0, '#fff7fb'],
+                [0.1, '#ece7f2'],
+                [0.2, '#d0d1e6'],
+                [0.3, '#a6bddb'],
+                [0.4, '#74a9cf'],
+                [0.5, '#3690c0'],
+                [0.6, '#0570b0'],
+                [0.7, '#045a8d'],
+                [0.8, '#023858'],
+                ]
+                },
+            'fill-opacity': 0.7,
+             }
+            }
+      );
+      map.addLayer({
+        id: '2014_F_Ina',
+        type: 'fill',
+        source: {
+          type: 'vector',
+          url: 'mapbox://hannahgumble.334cze9r' // Your Mapbox tileset Map ID
+        },
+        'source-layer': 'Sports_Data-bzkfs7', // name of tilesets
+          'paint': {
+            'fill-color':{
+            property: '2014_F_Ina',
+            type: 'interval',
+            stops: [
+                [0.0, '#fff7fb'],
+                [0.1, '#ece7f2'],
+                [0.2, '#d0d1e6'],
+                [0.3, '#a6bddb'],
+                [0.4, '#74a9cf'],
+                [0.5, '#3690c0'],
+                [0.6, '#0570b0'],
+                [0.7, '#045a8d'],
+                [0.8, '#023858'],
+                ]
+                },
+            'fill-opacity': 0.7,
+             }
+            }
+      );
+      map.addLayer({
+        id: '1516_M_1x3',
+        type: 'fill',
+        source: {
+          type: 'vector',
+          url: 'mapbox://hannahgumble.334cze9r' // Your Mapbox tileset Map ID
+        },
+        'source-layer': 'Sports_Data-bzkfs7', // name of tilesets
+          'paint': {
+            'fill-color':{
+            property: '1516_M_1x3',
+            type: 'interval',
+            stops: [
+                [0.0, '#fff7fb'],
+                [0.1, '#ece7f2'],
+                [0.2, '#d0d1e6'],
+                [0.3, '#a6bddb'],
+                [0.4, '#74a9cf'],
+                [0.5, '#3690c0'],
+                [0.6, '#0570b0'],
+                [0.7, '#045a8d'],
+                [0.8, '#023858'],
+                ]
+                },
+            'fill-opacity': 0.7,
+             }
+            }
+      );
+      map.addLayer({
+        id: '1516_F_1x3',
+        type: 'fill',
+        source: {
+          type: 'vector',
+          url: 'mapbox://hannahgumble.334cze9r' // Your Mapbox tileset Map ID
+        },
+        'source-layer': 'Sports_Data-bzkfs7', // name of tilesets
+          'paint': {
+            'fill-color':{
+            property: '1516_F_1x3',
+            type: 'interval',
+            stops: [
+                [0.0, '#fff7fb'],
+                [0.1, '#ece7f2'],
+                [0.2, '#d0d1e6'],
+                [0.3, '#a6bddb'],
+                [0.4, '#74a9cf'],
+                [0.5, '#3690c0'],
+                [0.6, '#0570b0'],
+                [0.7, '#045a8d'],
+                [0.8, '#023858'],
+                ]
+                },
+            'fill-opacity': 0.7,
+             }
+            }
+      );
+      map.addLayer({
+        id: '1516_M_3x3',
+        type: 'fill',
+        source: {
+          type: 'vector',
+          url: 'mapbox://hannahgumble.334cze9r' // Your Mapbox tileset Map ID
+        },
+        'source-layer': 'Sports_Data-bzkfs7', // name of tilesets
+          'paint': {
+            'fill-color':{
+            property: '1516_M_3x3',
+            type: 'interval',
+            stops: [
+               [0.0, '#fff7fb'],
+                [0.1, '#ece7f2'],
+                [0.2, '#d0d1e6'],
+                [0.3, '#a6bddb'],
+                [0.4, '#74a9cf'],
+                [0.5, '#3690c0'],
+                [0.6, '#0570b0'],
+                [0.7, '#045a8d'],
+                [0.8, '#023858'],
+                ]
+                },
+            'fill-opacity': 0.7,
+             }
+            }
+      );
+      map.addLayer({
+        id: '1516_F_3x3',
+        type: 'fill',
+        source: {
+          type: 'vector',
+          url: 'mapbox://hannahgumble.334cze9r' // Your Mapbox tileset Map ID
+        },
+        'source-layer': 'Sports_Data-bzkfs7', // name of tilesets
+          'paint': {
+            'fill-color':{
+            property: '1516_F_3x3',
+            type: 'interval',
+            stops: [
+                [0.0, '#fff7fb'],
+                [0.1, '#ece7f2'],
+                [0.2, '#d0d1e6'],
+                [0.3, '#a6bddb'],
+                [0.4, '#74a9cf'],
+                [0.5, '#3690c0'],
+                [0.6, '#0570b0'],
+                [0.7, '#045a8d'],
+                [0.8, '#023858'],
+                ]
+                },
+            'fill-opacity': 0.7,
+             }
+            }
+      );
+
+//Event listener for layer switch
+document.getElementById("layer1").addEventListener("click", function(){
+map.setPaintProperty('2015_16_25','fill-opacity',0.7);
+map.setPaintProperty('2015_45_54','fill-opacity',0);
+map.setPaintProperty('2005_16_25','fill-opacity',0);
+map.setPaintProperty('2005_45_54','fill-opacity',0);
+map.setPaintProperty('2005_White','fill-opacity',0);
+map.setPaintProperty('2005_BAME','fill-opacity',0);
+map.setPaintProperty('2015_White','fill-opacity',0);
+map.setPaintProperty('2015_BAME','fill-opacity',0);
+map.setPaintProperty('2014_M_Act','fill-opacity',0);
+map.setPaintProperty('2014_F_Act','fill-opacity',0);
+map.setPaintProperty('2014_M_Ina','fill-opacity',0);
+map.setPaintProperty('2014_F_Ina','fill-opacity',0);
+map.setPaintProperty('1516_M_1x3','fill-opacity',0);
+map.setPaintProperty('1516_F_1x3','fill-opacity',0);
+map.setPaintProperty('1516_M_3x3','fill-opacity',0);
+map.setPaintProperty('1516_F_3x3','fill-opacity',0);
+});
+
+document.getElementById("layer2").addEventListener("click", function(){
+map.setPaintProperty('2015_16_25','fill-opacity',0);
+map.setPaintProperty('2015_45_54','fill-opacity',0.7);
+map.setPaintProperty('2005_16_25','fill-opacity',0);
+map.setPaintProperty('2005_45_54','fill-opacity',0);
+map.setPaintProperty('2005_White','fill-opacity',0);
+map.setPaintProperty('2005_BAME','fill-opacity',0);
+map.setPaintProperty('2015_White','fill-opacity',0);
+map.setPaintProperty('2015_BAME','fill-opacity',0);
+map.setPaintProperty('2014_M_Act','fill-opacity',0);
+map.setPaintProperty('2014_F_Act','fill-opacity',0);
+map.setPaintProperty('2014_M_Ina','fill-opacity',0);
+map.setPaintProperty('2014_F_Ina','fill-opacity',0);
+map.setPaintProperty('1516_M_1x3','fill-opacity',0);
+map.setPaintProperty('1516_F_1x3','fill-opacity',0);
+map.setPaintProperty('1516_M_3x3','fill-opacity',0);
+map.setPaintProperty('1516_F_3x3','fill-opacity',0);
+});
+
+document.getElementById("layer3").addEventListener("click", function(){
+map.setPaintProperty('2015_16_25','fill-opacity',0);
+map.setPaintProperty('2015_45_54','fill-opacity',0);
+map.setPaintProperty('2005_16_25','fill-opacity',0.7);
+map.setPaintProperty('2005_45_54','fill-opacity',0);
+map.setPaintProperty('2005_White','fill-opacity',0);
+map.setPaintProperty('2005_BAME','fill-opacity',0);
+map.setPaintProperty('2015_White','fill-opacity',0);
+map.setPaintProperty('2015_BAME','fill-opacity',0);
+map.setPaintProperty('2014_M_Act','fill-opacity',0);
+map.setPaintProperty('2014_F_Act','fill-opacity',0);
+map.setPaintProperty('2014_M_Ina','fill-opacity',0);
+map.setPaintProperty('2014_F_Ina','fill-opacity',0);
+map.setPaintProperty('1516_M_1x3','fill-opacity',0);
+map.setPaintProperty('1516_F_1x3','fill-opacity',0);
+map.setPaintProperty('1516_M_3x3','fill-opacity',0);
+map.setPaintProperty('1516_F_3x3','fill-opacity',0);
+});
+
+document.getElementById("layer4").addEventListener("click", function(){
+map.setPaintProperty('2015_16_25','fill-opacity',0);
+map.setPaintProperty('2015_45_54','fill-opacity',0);
+map.setPaintProperty('2005_16_25','fill-opacity',0);
+map.setPaintProperty('2005_45_54','fill-opacity',0.7);
+map.setPaintProperty('2005_White','fill-opacity',0);
+map.setPaintProperty('2005_BAME','fill-opacity',0);
+map.setPaintProperty('2015_White','fill-opacity',0);
+map.setPaintProperty('2015_BAME','fill-opacity',0);
+map.setPaintProperty('2014_M_Act','fill-opacity',0);
+map.setPaintProperty('2014_F_Act','fill-opacity',0);
+map.setPaintProperty('2014_M_Ina','fill-opacity',0);
+map.setPaintProperty('2014_F_Ina','fill-opacity',0);
+map.setPaintProperty('1516_M_1x3','fill-opacity',0);
+map.setPaintProperty('1516_F_1x3','fill-opacity',0);
+map.setPaintProperty('1516_M_3x3','fill-opacity',0);
+map.setPaintProperty('1516_F_3x3','fill-opacity',0);
+});
+
+document.getElementById("layer5").addEventListener("click", function(){
+map.setPaintProperty('2015_16_25','fill-opacity',0);
+map.setPaintProperty('2015_45_54','fill-opacity',0);
+map.setPaintProperty('2005_16_25','fill-opacity',0);
+map.setPaintProperty('2005_45_54','fill-opacity',0);
+map.setPaintProperty('2005_White','fill-opacity',0.7);
+map.setPaintProperty('2005_BAME','fill-opacity',0);
+map.setPaintProperty('2015_White','fill-opacity',0);
+map.setPaintProperty('2015_BAME','fill-opacity',0);
+map.setPaintProperty('2014_M_Act','fill-opacity',0);
+map.setPaintProperty('2014_F_Act','fill-opacity',0);
+map.setPaintProperty('2014_M_Ina','fill-opacity',0);
+map.setPaintProperty('2014_F_Ina','fill-opacity',0);
+map.setPaintProperty('1516_M_1x3','fill-opacity',0);
+map.setPaintProperty('1516_F_1x3','fill-opacity',0);
+map.setPaintProperty('1516_M_3x3','fill-opacity',0);
+map.setPaintProperty('1516_F_3x3','fill-opacity',0);
+});
+
+document.getElementById("layer6").addEventListener("click", function(){
+map.setPaintProperty('2015_16_25','fill-opacity',0);
+map.setPaintProperty('2015_45_54','fill-opacity',0);
+map.setPaintProperty('2005_16_25','fill-opacity',0);
+map.setPaintProperty('2005_45_54','fill-opacity',0);
+map.setPaintProperty('2005_White','fill-opacity',0);
+map.setPaintProperty('2005_BAME','fill-opacity',0.7);
+map.setPaintProperty('2015_White','fill-opacity',0);
+map.setPaintProperty('2015_BAME','fill-opacity',0);
+map.setPaintProperty('2014_M_Act','fill-opacity',0);
+map.setPaintProperty('2014_F_Act','fill-opacity',0);
+map.setPaintProperty('2014_M_Ina','fill-opacity',0);
+map.setPaintProperty('2014_F_Ina','fill-opacity',0);
+map.setPaintProperty('1516_M_1x3','fill-opacity',0);
+map.setPaintProperty('1516_F_1x3','fill-opacity',0);
+map.setPaintProperty('1516_M_3x3','fill-opacity',0);
+map.setPaintProperty('1516_F_3x3','fill-opacity',0);
+});
+
+document.getElementById("layer7").addEventListener("click", function(){
+map.setPaintProperty('2015_16_25','fill-opacity',0);
+map.setPaintProperty('2015_45_54','fill-opacity',0);
+map.setPaintProperty('2005_16_25','fill-opacity',0);
+map.setPaintProperty('2005_45_54','fill-opacity',0);
+map.setPaintProperty('2005_White','fill-opacity',0);
+map.setPaintProperty('2005_BAME','fill-opacity',0);
+map.setPaintProperty('2015_White','fill-opacity',0.7);
+map.setPaintProperty('2015_BAME','fill-opacity',0);
+map.setPaintProperty('2014_M_Act','fill-opacity',0);
+map.setPaintProperty('2014_F_Act','fill-opacity',0);
+map.setPaintProperty('2014_M_Ina','fill-opacity',0);
+map.setPaintProperty('2014_F_Ina','fill-opacity',0);
+map.setPaintProperty('1516_M_1x3','fill-opacity',0);
+map.setPaintProperty('1516_F_1x3','fill-opacity',0);
+map.setPaintProperty('1516_M_3x3','fill-opacity',0);
+map.setPaintProperty('1516_F_3x3','fill-opacity',0);
+});
+
+document.getElementById("layer8").addEventListener("click", function(){
+map.setPaintProperty('2015_16_25','fill-opacity',0);
+map.setPaintProperty('2015_45_54','fill-opacity',0);
+map.setPaintProperty('2005_16_25','fill-opacity',0);
+map.setPaintProperty('2005_45_54','fill-opacity',0);
+map.setPaintProperty('2005_White','fill-opacity',0);
+map.setPaintProperty('2005_BAME','fill-opacity',0);
+map.setPaintProperty('2015_White','fill-opacity',0);
+map.setPaintProperty('2015_BAME','fill-opacity',0.7);
+map.setPaintProperty('2014_M_Act','fill-opacity',0);
+map.setPaintProperty('2014_F_Act','fill-opacity',0);
+map.setPaintProperty('2014_M_Ina','fill-opacity',0);
+map.setPaintProperty('2014_F_Ina','fill-opacity',0);
+map.setPaintProperty('1516_M_1x3','fill-opacity',0);
+map.setPaintProperty('1516_F_1x3','fill-opacity',0);
+map.setPaintProperty('1516_M_3x3','fill-opacity',0);
+map.setPaintProperty('1516_F_3x3','fill-opacity',0);
+});
+
+document.getElementById("layer9").addEventListener("click", function(){
+map.setPaintProperty('2015_16_25','fill-opacity',0);
+map.setPaintProperty('2015_45_54','fill-opacity',0);
+map.setPaintProperty('2005_16_25','fill-opacity',0);
+map.setPaintProperty('2005_45_54','fill-opacity',0);
+map.setPaintProperty('2005_White','fill-opacity',0);
+map.setPaintProperty('2005_BAME','fill-opacity',0);
+map.setPaintProperty('2015_White','fill-opacity',0);
+map.setPaintProperty('2015_BAME','fill-opacity',0);
+map.setPaintProperty('2014_M_Act','fill-opacity',0.7);
+map.setPaintProperty('2014_F_Act','fill-opacity',0);
+map.setPaintProperty('2014_M_Ina','fill-opacity',0);
+map.setPaintProperty('2014_F_Ina','fill-opacity',0);
+map.setPaintProperty('1516_M_1x3','fill-opacity',0);
+map.setPaintProperty('1516_F_1x3','fill-opacity',0);
+map.setPaintProperty('1516_M_3x3','fill-opacity',0);
+map.setPaintProperty('1516_F_3x3','fill-opacity',0);
+});
+
+document.getElementById("layer10").addEventListener("click", function(){
+map.setPaintProperty('2015_16_25','fill-opacity',0);
+map.setPaintProperty('2015_45_54','fill-opacity',0);
+map.setPaintProperty('2005_16_25','fill-opacity',0);
+map.setPaintProperty('2005_45_54','fill-opacity',0);
+map.setPaintProperty('2005_White','fill-opacity',0);
+map.setPaintProperty('2005_BAME','fill-opacity',0);
+map.setPaintProperty('2015_White','fill-opacity',0);
+map.setPaintProperty('2015_BAME','fill-opacity',0);
+map.setPaintProperty('2014_M_Act','fill-opacity',0);
+map.setPaintProperty('2014_F_Act','fill-opacity',0.7);
+map.setPaintProperty('2014_M_Ina','fill-opacity',0);
+map.setPaintProperty('2014_F_Ina','fill-opacity',0);
+map.setPaintProperty('1516_M_1x3','fill-opacity',0);
+map.setPaintProperty('1516_F_1x3','fill-opacity',0);
+map.setPaintProperty('1516_M_3x3','fill-opacity',0);
+map.setPaintProperty('1516_F_3x3','fill-opacity',0);
+});
+
+document.getElementById("layer11").addEventListener("click", function(){
+map.setPaintProperty('2015_16_25','fill-opacity',0);
+map.setPaintProperty('2015_45_54','fill-opacity',0);
+map.setPaintProperty('2005_16_25','fill-opacity',0);
+map.setPaintProperty('2005_45_54','fill-opacity',0);
+map.setPaintProperty('2005_White','fill-opacity',0);
+map.setPaintProperty('2005_BAME','fill-opacity',0);
+map.setPaintProperty('2015_White','fill-opacity',0);
+map.setPaintProperty('2015_BAME','fill-opacity',0);
+map.setPaintProperty('2014_M_Act','fill-opacity',0);
+map.setPaintProperty('2014_F_Act','fill-opacity',0);
+map.setPaintProperty('2014_M_Ina','fill-opacity',0.7);
+map.setPaintProperty('2014_F_Ina','fill-opacity',0);
+map.setPaintProperty('1516_M_1x3','fill-opacity',0);
+map.setPaintProperty('1516_F_1x3','fill-opacity',0);
+map.setPaintProperty('1516_M_3x3','fill-opacity',0);
+map.setPaintProperty('1516_F_3x3','fill-opacity',0);
+});
+
+document.getElementById("layer12").addEventListener("click", function(){
+map.setPaintProperty('2015_16_25','fill-opacity',0);
+map.setPaintProperty('2015_45_54','fill-opacity',0);
+map.setPaintProperty('2005_16_25','fill-opacity',0);
+map.setPaintProperty('2005_45_54','fill-opacity',0);
+map.setPaintProperty('2005_White','fill-opacity',0);
+map.setPaintProperty('2005_BAME','fill-opacity',0);
+map.setPaintProperty('2015_White','fill-opacity',0);
+map.setPaintProperty('2015_BAME','fill-opacity',0);
+map.setPaintProperty('2014_M_Act','fill-opacity',0);
+map.setPaintProperty('2014_F_Act','fill-opacity',0);
+map.setPaintProperty('2014_M_Ina','fill-opacity',0);
+map.setPaintProperty('2014_F_Ina','fill-opacity',0.7);
+map.setPaintProperty('1516_M_1x3','fill-opacity',0);
+map.setPaintProperty('1516_F_1x3','fill-opacity',0);
+map.setPaintProperty('1516_M_3x3','fill-opacity',0);
+map.setPaintProperty('1516_F_3x3','fill-opacity',0);
+});
+
+document.getElementById("layer13").addEventListener("click", function(){
+map.setPaintProperty('2015_16_25','fill-opacity',0);
+map.setPaintProperty('2015_45_54','fill-opacity',0);
+map.setPaintProperty('2005_16_25','fill-opacity',0);
+map.setPaintProperty('2005_45_54','fill-opacity',0);
+map.setPaintProperty('2005_White','fill-opacity',0);
+map.setPaintProperty('2005_BAME','fill-opacity',0);
+map.setPaintProperty('2015_White','fill-opacity',0);
+map.setPaintProperty('2015_BAME','fill-opacity',0);
+map.setPaintProperty('2014_M_Act','fill-opacity',0);
+map.setPaintProperty('2014_F_Act','fill-opacity',0);
+map.setPaintProperty('2014_M_Ina','fill-opacity',0);
+map.setPaintProperty('2014_F_Ina','fill-opacity',0);
+map.setPaintProperty('1516_M_1x3','fill-opacity',0.7);
+map.setPaintProperty('1516_F_1x3','fill-opacity',0);
+map.setPaintProperty('1516_M_3x3','fill-opacity',0);
+map.setPaintProperty('1516_F_3x3','fill-opacity',0);
+});
+
+document.getElementById("layer14").addEventListener("click", function(){
+map.setPaintProperty('2015_16_25','fill-opacity',0);
+map.setPaintProperty('2015_45_54','fill-opacity',0);
+map.setPaintProperty('2005_16_25','fill-opacity',0);
+map.setPaintProperty('2005_45_54','fill-opacity',0);
+map.setPaintProperty('2005_White','fill-opacity',0);
+map.setPaintProperty('2005_BAME','fill-opacity',0);
+map.setPaintProperty('2015_White','fill-opacity',0);
+map.setPaintProperty('2015_BAME','fill-opacity',0);
+map.setPaintProperty('2014_M_Act','fill-opacity',0);
+map.setPaintProperty('2014_F_Act','fill-opacity',0);
+map.setPaintProperty('2014_M_Ina','fill-opacity',0);
+map.setPaintProperty('2014_F_Ina','fill-opacity',0);
+map.setPaintProperty('1516_M_1x3','fill-opacity',0);
+map.setPaintProperty('1516_F_1x3','fill-opacity',0.7);
+map.setPaintProperty('1516_M_3x3','fill-opacity',0);
+map.setPaintProperty('1516_F_3x3','fill-opacity',0);
+});
+
+document.getElementById("layer15").addEventListener("click", function(){
+map.setPaintProperty('2015_16_25','fill-opacity',0);
+map.setPaintProperty('2015_45_54','fill-opacity',0);
+map.setPaintProperty('2005_16_25','fill-opacity',0);
+map.setPaintProperty('2005_45_54','fill-opacity',0);
+map.setPaintProperty('2005_White','fill-opacity',0);
+map.setPaintProperty('2005_BAME','fill-opacity',0);
+map.setPaintProperty('2015_White','fill-opacity',0);
+map.setPaintProperty('2015_BAME','fill-opacity',0);
+map.setPaintProperty('2014_M_Act','fill-opacity',0);
+map.setPaintProperty('2014_F_Act','fill-opacity',0);
+map.setPaintProperty('2014_M_Ina','fill-opacity',0);
+map.setPaintProperty('2014_F_Ina','fill-opacity',0);
+map.setPaintProperty('1516_M_1x3','fill-opacity',0);
+map.setPaintProperty('1516_F_1x3','fill-opacity',0);
+map.setPaintProperty('1516_M_3x3','fill-opacity',0.7);
+map.setPaintProperty('1516_F_3x3','fill-opacity',0);
+});
+
+document.getElementById("layer16").addEventListener("click", function(){
+map.setPaintProperty('2015_16_25','fill-opacity',0);
+map.setPaintProperty('2015_45_54','fill-opacity',0);
+map.setPaintProperty('2005_16_25','fill-opacity',0);
+map.setPaintProperty('2005_45_54','fill-opacity',0);
+map.setPaintProperty('2005_White','fill-opacity',0);
+map.setPaintProperty('2005_BAME','fill-opacity',0);
+map.setPaintProperty('2015_White','fill-opacity',0);
+map.setPaintProperty('2015_BAME','fill-opacity',0);
+map.setPaintProperty('2014_M_Act','fill-opacity',0);
+map.setPaintProperty('2014_F_Act','fill-opacity',0);
+map.setPaintProperty('2014_M_Ina','fill-opacity',0);
+map.setPaintProperty('2014_F_Ina','fill-opacity',0);
+map.setPaintProperty('1516_M_1x3','fill-opacity',0);
+map.setPaintProperty('1516_F_1x3','fill-opacity',0);
+map.setPaintProperty('1516_M_3x3','fill-opacity',0);
+map.setPaintProperty('1516_F_3x3','fill-opacity',0.7);
+document.getElementById('narrative').innerHTML = "Hello World";
+});
+
+// Displays brough name when clicked
+    map.on('click', '2015_16_25', function (e) {
+        new mapboxgl.Popup()
+            .setLngLat(e.lngLat)
+            .setHTML(e.features[0].properties.NAME)
+            .addTo(map);
+    });
+
+    map.on('mouseenter', '2015_16_25', function () {
+        map.getCanvas().style.cursor = 'pointer';
+    });
+
+    map.on('mouseleave', '2015_16_25', function () {
+        map.getCanvas().style.cursor = '';
+    });
+
+});
+
+
+</script>
+
+</body>
+</html>
