@@ -28,41 +28,67 @@
   margin-top: 20px;
   margin-bottom: 20px;
 }
-/* CREATING THE THREE COLUMNS */
-.column {
-    float: left;
-    /*padding: 10px;*/
+
+#headerlogo
+{
+  position: absolute;
+  height: 260px;
+  left: 54%;
+  top: 0;
 }
-
-/* Left and right column */
-.column.side {
-    width: 20%;
-}
-
-/* Middle column */
-.column.middle {
-    width: 60%;
-    /*background-color: #DEDEDE;*/
-}
-
-/* Clear floats after the columns */
-
-.row:after {
-    content: "";
-    display: table;
-    clear: both;
-}
-
 /* ************* */
+body
+{
+
+      /*background-color: #2B2B2B;*/
+      background-image: url("img/2.jpg");
+      background-repeat: no-repeat;
+      background-position: center top;
+      background-attachment: fixed;
+      background-size: cover;
+
+}
 h1
 {
-  color: #FF374D;
-  left: 20%;
-  font-size: 4em;
-  background-color: #ffb5b857;
-  /*background-color: #FFB5B8;*/
+  font: 80px/60px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+  color: #EEEEEE;
+
+
+  background-color: #FF374D;
+
+  padding-top: 17px;
+  width: 45%;
+  margin-left: 5%;
 }
 p
 {
-  font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+  font: 18px/38px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+  /* font-weight: bold; */
+  color: #CCCCCC;
+  width: 65%;
+  margin-left: 35%;
+  margin-bottom: 50px;
+  padding: 2px;
+  /* background-color: #5E5E5E; */
+  border-bottom: #5E5E5E solid 2px;
+  border-top: #5E5E5E solid 2px;
+}
+
+#mapboxParticipation
+{
+  margin-left: 4%;
+  margin-right: 4%;
+  width: 92%;
+  height: 610px;
+}
+#header
+{
+  font: 80px/60px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+  color: #EEEEEE;
+  background-color: #6BBAFF;
+  padding-top: 17px;
+  width: 50%;
+  margin-left: 50%;
+  position: sticky;
+  /* top: 0; */
 }
