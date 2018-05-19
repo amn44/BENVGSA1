@@ -17,15 +17,20 @@ body { margin:0; padding:0; }
       top: 0;
       left: 0;
       padding: 10px;
+            z-index: +1;
   }
 
-  .map-overlay .map-overlay-inner {
+ .map-overlay-inner {
+      position: absolute;
+      top: 5px;
+      left: 5;
       background-color: rgba(255, 255, 255, 0.7);
       box-shadow:0 1px 2px rgba(255, 255, 255, 0.20);
       border-radius: 10px;
       padding: 10px;
       margin-bottom: 10px;
       color: black;
+     z-index: -1;
   }
 
   .key_fig {
@@ -39,23 +44,23 @@ body { margin:0; padding:0; }
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
-    fill-opacity: 0.7;
+    opacity: 0.7;
     display: block;
     border-color: black;
 }
-.key_fig2 {background-color: #ece7f2; fill-opacity: 0.7;} 
-.key_fig3 {background-color: #d0d1e6; fill-opacity: 0.7;}
-.key_fig4 {background-color: #a6bddb; fill-opacity: 0.7;}
-.key_fig5 {background-color: #74a9cf; fill-opacity: 0.7;}
-.key_fig6 {background-color: #3690c0; fill-opacity: 0.7;}
-.key_fig7 {background-color: #0570b0; fill-opacity: 0.7;}
-.key_fig8 {background-color: #045a8d; fill-opacity: 0.7;}
-.key_fig9 {background-color: #023858; fill-opacity: 0.7;}
+.key_fig2 {background-color: #ece7f2;} 
+.key_fig3 {background-color: #d0d1e6;}
+.key_fig4 {background-color: #a6bddb;}
+.key_fig5 {background-color: #74a9cf;}
+.key_fig6 {background-color: #3690c0;}
+.key_fig7 {background-color: #0570b0;}
+.key_fig8 {background-color: #045a8d;}
+.key_fig9 {background-color: #023858;}
 
 
 .Key {
       font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
-      position: fixed;
+      position: absolute;
       display: block;
       bottom: 0;
       right: 0;
@@ -69,31 +74,30 @@ body { margin:0; padding:0; }
 
 .Description-Box {
       font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
-      position: fixed;
+      position: absolute;
       bottom: 0;
       left: 400px;
       right: 300px;
-      background-color: rgba(255, 255, 255, 0.80);
+      background-color: rgba(255, 255, 255, 0.70);
       box-shadow:0 1px 2px rgba(255, 255, 255, 0.20);
       border-radius: 10px;
       padding: 5px;
-      margin-bottom: 10px;
-      color: black;
+      margin-bottom: 20px;
+      color: black;}
 
     </style>
 </head>
 <body>
 
 
-<div id='map'></div>
+<div id='map'>
 
 <div class='map-overlay top'>
     <div class='map-overlay-inner'>
         <h2>Sports Participation in London</h2>
-        <p style="margin-top:0px;">The following data has been extracted from sport england and outlines levels of participation in sports under different demographics.</p>
 
       <h2>Age</h2>
-      <input type="radio" name="layers" id="layer3" value="2005_16_25"><label>2005 16-25 years &nbsp; &nbsp;</label> 
+      <input type="radio" name="layers" id="layer3" value="2005_16_25" checked><label>2005 16-25 years</label> 
       <input type="radio" name="layers" id="layer1" value="2015_16_25"><label>2015 16-25 years </label>
       <br>
       <input type="radio" name="layers" id="layer4" value="2005_45_54"><label>2005 45-54 years </label>
@@ -103,21 +107,24 @@ body { margin:0; padding:0; }
       <input type="radio" name="layers" id="layer6" value="2005_BAME"><label> 2005  BAME </label>
       <br>
       <input type="radio" name="layers" id="layer7" value="2015_White"><label> 2015 White </label>
-     <input type="radio" name="layers" id="layer8" value="2015_BAME"><label> 2015 BAME </label>
+     <input type="radio" name="layers" id="layer8" value="2015_BAME"><label> 2015 BAME 
+      <br>*BAME- Black, Asian and minority ethnic.</label>
      <h2>Gender</h2>
      <input type="radio" name="layers" id="layer9" value="2014_M_Act"><label>2014 Male Active</label>
      <input type="radio" name="layers" id="layer10" value="2014_F_Act"><label>2014 Female Active</label>
      <br>
-     <input type="radio" name="layers" id="layer11" value="2014_M_Ina"><label>2014 M Inactive</label>
+     <input type="radio" name="layers" id="layer11" value="2014_M_Ina"><label>2014 Male Inactive</label>
      <input type="radio" name="layers" id="layer12" value="2014_F_Ina"><label>2014 Female Inactive</label>
      <br>
-     <input type="radio" name="layers" id="layer13" value="1516_M_1x3"><label>2015 Male 1x30 sessions per week</label>
+     <h2>   Activity</h2>
+     <input type="radio" name="layers" id="layer13" value="1516_M_1x3"><label>2015 Male 1x30 mins sessions per week</label>
      <br>
-     <input type="radio" name="layers" id="layer14" value="1516_F_1x3"><label>2015 Female 1x30 sessions per week</label>
+     <input type="radio" name="layers" id="layer14" value="1516_F_1x3"><label>2015 Female 1x30 mins sessions per week</label>
      <br>
-     <input type="radio" name="layers" id="layer15" value="1516_M_3x3"><label>2015 Male 3x30 sessions per week</label>
+     <input type="radio" name="layers" id="layer15" value="1516_M_3x3"><label>2015 Male 3x30 mins sessions per week</label>
      <br>
-     <input type="radio" name="layers" id="layer16" value="1516_F_3x3"><label>2015 Female 3x30 sessions per week</label>
+     <input type="radio" name="layers" id="layer16" value="1516_F_3x3"><label>2015 Female 3x30 mins sessions per week</label>
+     <br>
     <img src="http://craigwhittakermp.co.uk/wp-content/uploads/2017/12/Sport20England.jpg" style="width:100%;height:50%;image-rendering:-webkit-optimize-contrast;" >
          <p class="credit">Data: Sport England Active People Survey. Cartography: <a href="https://data.london.gov.uk/dataset/statistical-gis-boundary-files-london">London Datastore</a>.</p>
 </div>
@@ -137,9 +144,12 @@ body { margin:0; padding:0; }
     </div>
 
     <div class='Description-Box'>
-        <h2>Key Notes</h2>
-        <p style="margin-top:0px;"> <label id='narrative'>In 2005 Islington has the lowest participation for 16-26 years old at 67%, whereas Righmond upon Thames, Kingson upon thames and Sutton have the highest at 67%, 66% and 60% respectively.</p></label>
+        <p style="margin-top:0px;"> <label id='narrative'>Welcome to this map! Please feel free to explore the variables on the left had side to understand participation in sport in London.</p></label>
     </div>
+
+    <!--  MAP DIV -->
+    </div>
+
 
     <script>
 
@@ -157,6 +167,7 @@ body { margin:0; padding:0; }
 
     map.on('load', function() {
       map.addControl(new mapboxgl.NavigationControl());
+      map.scrollZoom.disable();
 
     // Load the participation data
       map.addLayer({
@@ -183,7 +194,7 @@ body { margin:0; padding:0; }
                 [0.8, '#023858'],
                 ]
                 },
-            'fill-opacity': 0.7,
+            'fill-opacity': 0.0,
              }
             }
       );
@@ -212,7 +223,7 @@ body { margin:0; padding:0; }
                 [0.8, '#023858'],
                 ]
                 },
-            'fill-opacity': 0.7,
+            'fill-opacity': 0.0,
              }
             }
       );
@@ -268,7 +279,7 @@ body { margin:0; padding:0; }
                 [0.8, '#023858'],
                 ]
                 },
-            'fill-opacity': 0.7,
+            'fill-opacity': 0.0,
              }
             }
       );
@@ -296,7 +307,7 @@ body { margin:0; padding:0; }
                 [0.8, '#023858'],
                 ]
                 },
-            'fill-opacity': 0.7,
+            'fill-opacity': 0.0,
              }
             }
       );
@@ -324,7 +335,7 @@ body { margin:0; padding:0; }
                 [0.8, '#023858'],
                 ]
                 },
-            'fill-opacity': 0.7,
+            'fill-opacity': 0.0,
              }
             }
       );
@@ -352,7 +363,7 @@ body { margin:0; padding:0; }
                 [0.8, '#023858'],
                 ]
                 },
-            'fill-opacity': 0.7,
+            'fill-opacity': 0.0,
              }
             }
       );
@@ -380,7 +391,7 @@ body { margin:0; padding:0; }
                 [0.8, '#023858'],
                 ]
                 },
-            'fill-opacity': 0.7,
+            'fill-opacity': 0.0,
              }
             }
       );
@@ -408,7 +419,7 @@ body { margin:0; padding:0; }
                 [0.8, '#023858'],
                 ]
                 },
-            'fill-opacity': 0.7,
+            'fill-opacity': 0.0,
              }
             }
       );
@@ -436,7 +447,7 @@ body { margin:0; padding:0; }
                 [0.8, '#023858'],
                 ]
                 },
-            'fill-opacity': 0.7,
+            'fill-opacity': 0.0,
              }
             }
       );
@@ -464,7 +475,7 @@ body { margin:0; padding:0; }
                 [0.8, '#023858'],
                 ]
                 },
-            'fill-opacity': 0.7,
+            'fill-opacity': 0.0,
              }
             }
       );
@@ -492,7 +503,7 @@ body { margin:0; padding:0; }
                 [0.8, '#023858'],
                 ]
                 },
-            'fill-opacity': 0.7,
+            'fill-opacity': 0.0,
              }
             }
       );
@@ -520,7 +531,7 @@ body { margin:0; padding:0; }
                 [0.8, '#023858'],
                 ]
                 },
-            'fill-opacity': 0.7,
+            'fill-opacity': 0.0,
              }
             }
       );
@@ -548,7 +559,7 @@ body { margin:0; padding:0; }
                 [0.8, '#023858'],
                 ]
                 },
-            'fill-opacity': 0.7,
+            'fill-opacity': 0.0,
              }
             }
       );
@@ -576,7 +587,7 @@ body { margin:0; padding:0; }
                 [0.8, '#023858'],
                 ]
                 },
-            'fill-opacity': 0.7,
+            'fill-opacity': 0.0,
              }
             }
       );
@@ -604,7 +615,7 @@ body { margin:0; padding:0; }
                 [0.8, '#023858'],
                 ]
                 },
-            'fill-opacity': 0.7,
+            'fill-opacity': 0.0,
              }
             }
       );
@@ -627,6 +638,7 @@ map.setPaintProperty('1516_M_1x3','fill-opacity',0);
 map.setPaintProperty('1516_F_1x3','fill-opacity',0);
 map.setPaintProperty('1516_M_3x3','fill-opacity',0);
 map.setPaintProperty('1516_F_3x3','fill-opacity',0);
+document.getElementById('narrative').innerHTML = "Looking at the total participation by age data for 16 to 25 year olds in 2015 highlights that the highest participation rate is in Wandsworth, with 74% of 16 to 25 year olds taking part in sport. The lowest participation rate is at 42% in Newham.";
 });
 
 document.getElementById("layer2").addEventListener("click", function(){
@@ -646,6 +658,7 @@ map.setPaintProperty('1516_M_1x3','fill-opacity',0);
 map.setPaintProperty('1516_F_1x3','fill-opacity',0);
 map.setPaintProperty('1516_M_3x3','fill-opacity',0);
 map.setPaintProperty('1516_F_3x3','fill-opacity',0);
+document.getElementById('narrative').innerHTML = "The average participation rate for 45-54 year olds in sport across London is 34%. The highest participation rate can be seen in Richmond upon Thames at 61%, with the lowest in Brent at 25%.";
 });
 
 document.getElementById("layer3").addEventListener("click", function(){
@@ -665,6 +678,7 @@ map.setPaintProperty('1516_M_1x3','fill-opacity',0);
 map.setPaintProperty('1516_F_1x3','fill-opacity',0);
 map.setPaintProperty('1516_M_3x3','fill-opacity',0);
 map.setPaintProperty('1516_F_3x3','fill-opacity',0);
+document.getElementById('narrative').innerHTML = "Total Participation by age in 2005 highlights that Islington has the lowest participation for 16-26 years old at 67%, whereas Richmond upon Thames, Kingston upon Thames and Sutton have the highest at 67%, 66% and 60% respectively.";
 });
 
 document.getElementById("layer4").addEventListener("click", function(){
@@ -684,6 +698,7 @@ map.setPaintProperty('1516_M_1x3','fill-opacity',0);
 map.setPaintProperty('1516_F_1x3','fill-opacity',0);
 map.setPaintProperty('1516_M_3x3','fill-opacity',0);
 map.setPaintProperty('1516_F_3x3','fill-opacity',0);
+document.getElementById('narrative').innerHTML = "Overall less people aged 45- 54 participate less in sport that those aged 16-25. The lowest participation rate is in Hillingdon at 22%. The highest participation rate was in Richmond upon Thames at 44%.";
 });
 
 document.getElementById("layer5").addEventListener("click", function(){
@@ -703,6 +718,7 @@ map.setPaintProperty('1516_M_1x3','fill-opacity',0);
 map.setPaintProperty('1516_F_1x3','fill-opacity',0);
 map.setPaintProperty('1516_M_3x3','fill-opacity',0);
 map.setPaintProperty('1516_F_3x3','fill-opacity',0);
+document.getElementById('narrative').innerHTML = "The average participation across London in 2005 was 35%. Richmond upon Thames, Kingston upon Thames and Wandsworth have the highest participation rates at 46%, 43% and 42% respectively. The lowest participation rate can be identified in Newham at 23%.";
 });
 
 document.getElementById("layer6").addEventListener("click", function(){
@@ -722,6 +738,7 @@ map.setPaintProperty('1516_M_1x3','fill-opacity',0);
 map.setPaintProperty('1516_F_1x3','fill-opacity',0);
 map.setPaintProperty('1516_M_3x3','fill-opacity',0);
 map.setPaintProperty('1516_F_3x3','fill-opacity',0);
+document.getElementById('narrative').innerHTML = "Kensington and Chelsea have the highest participation rate in sport at 48%, with the average across London being 35%. Newham and Brent have the lowest participation rates at 29%.";
 });
 
 document.getElementById("layer7").addEventListener("click", function(){
@@ -741,6 +758,7 @@ map.setPaintProperty('1516_M_1x3','fill-opacity',0);
 map.setPaintProperty('1516_F_1x3','fill-opacity',0);
 map.setPaintProperty('1516_M_3x3','fill-opacity',0);
 map.setPaintProperty('1516_F_3x3','fill-opacity',0);
+document.getElementById('narrative').innerHTML = "Average participation rate across London is 40%. Wandsworth has the highest participation rate at 52% followed by Richmond upon Thames at 50%. New has the lowest participation rate at 26%.";
 });
 
 document.getElementById("layer8").addEventListener("click", function(){
@@ -760,6 +778,7 @@ map.setPaintProperty('1516_M_1x3','fill-opacity',0);
 map.setPaintProperty('1516_F_1x3','fill-opacity',0);
 map.setPaintProperty('1516_M_3x3','fill-opacity',0);
 map.setPaintProperty('1516_F_3x3','fill-opacity',0);
+document.getElementById('narrative').innerHTML = "Ethnic Minority groups participate at an average of 35% in London. The highest participation rate is in Richmond upon Thames at 54% and the lowest participation rate is in Barking and Dagenham at 23%.";
 });
 
 document.getElementById("layer9").addEventListener("click", function(){
@@ -779,6 +798,7 @@ map.setPaintProperty('1516_M_1x3','fill-opacity',0);
 map.setPaintProperty('1516_F_1x3','fill-opacity',0);
 map.setPaintProperty('1516_M_3x3','fill-opacity',0);
 map.setPaintProperty('1516_F_3x3','fill-opacity',0);
+document.getElementById('narrative').innerHTML = "In 2014 63% of the male population were classed as active, completing 150 minuets of sport a week. The highest proportion of active male populations were Richmond Upon Thames at 77% and Southwark and Hammersmith and Fulham at 71%. The lowest boroughs were Newham and Redbridge at 57%, 6% below the average for England.";
 });
 
 document.getElementById("layer10").addEventListener("click", function(){
@@ -798,6 +818,7 @@ map.setPaintProperty('1516_M_1x3','fill-opacity',0);
 map.setPaintProperty('1516_F_1x3','fill-opacity',0);
 map.setPaintProperty('1516_M_3x3','fill-opacity',0);
 map.setPaintProperty('1516_F_3x3','fill-opacity',0);
+document.getElementById('narrative').innerHTML = "In 2014 53% of the female population across London were classed as active. In Richmond upon Thames, 66% of the female population were classed as active, whereas only 41% were classed as active in Redbridge.";
 });
 
 document.getElementById("layer11").addEventListener("click", function(){
@@ -817,6 +838,7 @@ map.setPaintProperty('1516_M_1x3','fill-opacity',0);
 map.setPaintProperty('1516_F_1x3','fill-opacity',0);
 map.setPaintProperty('1516_M_3x3','fill-opacity',0);
 map.setPaintProperty('1516_F_3x3','fill-opacity',0);
+document.getElementById('narrative').innerHTML = "An Inactive person participates in less than 30 minuets of sport per week, in London 23% of the male population were inactive. The largest proportion of inactive males were located in Barking and Dagenham (39%), whereas Camden only had 16% of the male population who were inactive.";
 });
 
 document.getElementById("layer12").addEventListener("click", function(){
@@ -836,6 +858,7 @@ map.setPaintProperty('1516_M_1x3','fill-opacity',0);
 map.setPaintProperty('1516_F_1x3','fill-opacity',0);
 map.setPaintProperty('1516_M_3x3','fill-opacity',0);
 map.setPaintProperty('1516_F_3x3','fill-opacity',0);
+document.getElementById('narrative').innerHTML = "An Inactive person participates in less than 30 minuets of sport per week. In 2014 Brent had the highest proportion of inactive females at 39%, 8% above the average for London. Richmond Upon Thames has the lowest amount of Inactive females at 17%.";
 });
 
 document.getElementById("layer13").addEventListener("click", function(){
@@ -855,6 +878,7 @@ map.setPaintProperty('1516_M_1x3','fill-opacity',0.7);
 map.setPaintProperty('1516_F_1x3','fill-opacity',0);
 map.setPaintProperty('1516_M_3x3','fill-opacity',0);
 map.setPaintProperty('1516_F_3x3','fill-opacity',0);
+document.getElementById('narrative').innerHTML = "Wandsworth has the highest proportion of males that participate in 1 30 minute activity a week at 61% followed by 59 % in Richmond Upon Thames. The average for London is 43%. Brent lies 17% below this at 26%.";
 });
 
 document.getElementById("layer14").addEventListener("click", function(){
@@ -874,6 +898,7 @@ map.setPaintProperty('1516_M_1x3','fill-opacity',0);
 map.setPaintProperty('1516_F_1x3','fill-opacity',0.7);
 map.setPaintProperty('1516_M_3x3','fill-opacity',0);
 map.setPaintProperty('1516_F_3x3','fill-opacity',0);
+document.getElementById('narrative').innerHTML = "In London 33% of females participate in 1 30 minute activity a week. Kensington and Chelsea has the highest proportion at 44% followed by Westminster and Richmond Upon Thames at 61%. The lowest female activity was recorded in Barking and Dagenham at 20%.";
 });
 
 document.getElementById("layer15").addEventListener("click", function(){
@@ -893,6 +918,7 @@ map.setPaintProperty('1516_M_1x3','fill-opacity',0);
 map.setPaintProperty('1516_F_1x3','fill-opacity',0);
 map.setPaintProperty('1516_M_3x3','fill-opacity',0.7);
 map.setPaintProperty('1516_F_3x3','fill-opacity',0);
+document.getElementById('narrative').innerHTML = "In London 22% of Males participate in 3 30 minute session of sport per week. Merton and Wandsorth are 10% above the Average for London at 33%, whereas, in Redbridge, only 14% of Males participate in 3 30 minute session of sport per week.";
 });
 
 document.getElementById("layer16").addEventListener("click", function(){
@@ -912,7 +938,7 @@ map.setPaintProperty('1516_M_1x3','fill-opacity',0);
 map.setPaintProperty('1516_F_1x3','fill-opacity',0);
 map.setPaintProperty('1516_M_3x3','fill-opacity',0);
 map.setPaintProperty('1516_F_3x3','fill-opacity',0.7);
-document.getElementById('narrative').innerHTML = "Hello World";
+document.getElementById('narrative').innerHTML = "An average of 13% of females in London participate in 3 30 minute session of sport per week. The Boroughs with the lowest participation are Sutton and Barking and Dagenham at 9%, whereas, in Kensington and Chelsea, 29% of females participate in 3 30 minute session of sport per week.";
 });
 
 // Displays brough name when clicked
