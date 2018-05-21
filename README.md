@@ -1,8 +1,16 @@
 # BENVGSA1
-2018 Digital Visualisation BENVGSA1 project: webpage showing 4 visualisations
+Group project: Webpage showing 4 visualisations for BENVGSA1
+Date: May 2018
+Theme: Pulse of the city
+Topic: participation, opportunities and communication previews of fitness in London
 
-Link to open project website (github pages) 
+Click below to open project website
+# https://amn44.github.io/BENVGSA1/
 
-## https://amn44.github.io/BENVGSA1/
-test website: 
-https://amn44.github.io
+_Contributors:_ 
+Aaron Amato
+Anna Min Novelli
+Chris Storey
+Hannah Gumble
+
+
