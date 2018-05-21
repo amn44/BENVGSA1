@@ -45,6 +45,14 @@
   right: 1%;
   top: 0;
 }
+
+#WelcomeVideo
+{
+	width: 100%;
+  height: 800px;
+}
+
+
 /* ************* */
 body
 {
