@@ -115,13 +115,14 @@ h1
   height: 1080px;
 }
 
-#footer {
-    background: #f9f9f9;
-    padding: 0 30px;
+#footer 
+{
+  background: #66666669;
+  padding: 30px;
 }
 
 #footerText
 {
-	font: 12px/14px 'Helvetica Neue', Arial, Helvetica, sans-serif;
-	margin-left:3%;
+  font: 12px/14px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+  margin-left:2px;
 }
