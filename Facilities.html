@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8' />
+    <title>Facilities</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.45.0/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.45.0/mapbox-gl.css' rel='stylesheet' />
+    <style>
+        body { margin:0; padding:0; }
+        #map { position:absolute; top:0; bottom:0; width:100%; }
+        .mapboxgl-ctrl-geocoder{
+            position: absolute !important;
+            width: 33.3333% !important;
+            min-width: 640px !important;
+            max-width: 760px !important;
+            right: 450px !important;
+        }
+    </style>
+</head>
+<body>
+<script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.2.0/mapbox-gl-geocoder.min.js'></script>  
+<link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.2.0/mapbox-gl-geocoder.css' type='text/css' /> 
+
+<style>
+        .mapboxgl-popup {
+            max-width: 400px;
+            font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+        }
+    </style>
+
+<style>
+    #menu {
+        background: #fff;
+        position: absolute;
+        z-index: 1;
+        top: 250px;
+        left: 20px;
+        border-radius: 8px;
+        width: 160px;
+        border: 1px solid rgba(0,0,0,0.4);
+        font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    }
+
+    #menu a {
+        font-size: 16px;
+        font: 18px/28px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+        color: #404040;
+        display: block;
+        margin: 0;
+        padding: 0;
+        padding: 15px;
+        text-decoration: none;
+        border-bottom: 1px solid rgba(0,0,0,0.25);
+        text-align: center;
+    }
+
+    #menu a:last-child {
+        border: none;
+    }
+
+    #menu a:hover {
+        background-color: #f8f8f8;
+        color: #404040;
+    }
+
+    #menu a.active {
+        background-color: #3887be;
+        color: #ffffff;
+    }
+
+    #menu a.active:hover {
+        background: #3074a4;
+    }
+</style>
+
+<nav id="menu"></nav>
+<div id="map"></div>
+
+<script>
+mapboxgl.accessToken = 'pk.eyJ1IjoiaGFubmFoZ3VtYmxlIiwiYSI6ImNqY2oweWtibDJzbmszM3JxemlncXo5ZDAifQ.h-gteOJJaIq4GxkctofuOg';
+var map = new mapboxgl.Map({
+    container: 'map',
+    style:'mapbox://styles/hannahgumble/cjh8wym0o2ht02smwx2k99cex',
+    zoom: 9.7,
+    center: [-0.1, 51.5]
+});
+map.addControl(new mapboxgl.NavigationControl());
+///////////////////////////////////// All Facilities Data
+map.on('load', function () {
+    map.addSource('All Facilities', {
+        type: 'vector',
+        url: 'mapbox://aaron93.0j5uqfid'
+    });
+    map.addLayer({
+        'id': 'All Facilities',
+        'type': 'circle',
+        'source': 'All Facilities',
+        'source-layer': 'Complete1-dmwlnf',
+        'layout': {
+            'visibility': 'visible'
+        },
+        paint: {
+            'circle-color': '#ffffff',
+            'circle-opacity': 0.3,
+            'circle-stroke-width': {
+			 	stops: [[8, 1], [13, 4], [16, 5]]
+			 },
+            'circle-stroke-color': '#000',
+            'circle-stroke-opacity': 0.7,
+            'circle-radius': {
+            	property: 'EE2008',
+            	stops: [
+            		[{zoom: 9, value: 0}, 1],
+            		[{zoom: 9, value: 100}, 5],
+            		[{zoom: 12, value: 0}, 3],
+            		[{zoom: 12, value: 100}, 40],
+            		[{zoom: 16, value: 0}, 4],
+            		[{zoom: 16, value: 100}, 150],
+            		]
+            }}
+    });
+
+
+//////////////////////////////////////////////
+map.addSource('Gym & Leisure Activities', {
+        type: 'vector',
+        url: 'mapbox://aaron93.89e3yb5n'
+    });
+    map.addLayer({
+        'id': 'Gym & Leisure Activities',
+        'type': 'circle',
+        'source': 'Gym & Leisure Activities',
+        'layout': {
+            'visibility': 'none'
+        },
+        'paint': {
+            'circle-radius': 8,
+            'circle-opacity': 0.6,
+            'circle-stroke-color': '#000',
+            'circle-stroke-opacity': 0.6,
+            'circle-stroke-width': {
+			 	stops: [[8, 1], [13, 4], [16, 5]]
+			 },
+            'circle-color': '#FF374D',
+            
+            
+        },
+        'source-layer': 'Gym1GEO-1xwoyu',
+        'circle-radius': {
+            	property: 'EE2008',
+            	stops: [
+            		[{zoom: 9, value: 0}, 1],
+            		[{zoom: 9, value: 100}, 5],
+            		[{zoom: 12, value: 0}, 3],
+            		[{zoom: 12, value: 100}, 40],
+            		[{zoom: 16, value: 0}, 4],
+            		[{zoom: 16, value: 100}, 150],
+            		]
+        },
+
+    });
+
+////////////////////////////////////
+map.addSource('Aquatic', {
+        type: 'vector',
+        url: 'mapbox://aaron93.8t7y8j4l'
+    });
+    map.addLayer({
+        'id': 'Aquatic',
+        'type': 'circle',
+        'source': 'Aquatic',
+        'layout': {
+            'visibility': 'none'
+        },
+        'paint': {
+            'circle-radius': 8,
+            'circle-opacity': 0.6,
+            'circle-stroke-width': {
+			 	stops: [[8, 1], [13, 4], [16, 5]]
+			 },
+            'circle-color': '#6BBAFF'
+        },
+        'source-layer': 'Aquatic1GEO-bo64rx',
+        'circle-radius': {
+            	property: 'EE2008',
+            	stops: [
+            		[{zoom: 9, value: 0}, 1],
+            		[{zoom: 9, value: 100}, 5],
+            		[{zoom: 12, value: 0}, 3],
+            		[{zoom: 12, value: 100}, 40],
+            		[{zoom: 16, value: 0}, 4],
+            		[{zoom: 16, value: 100}, 150],
+            		]
+        },
+    });
+////////////////////////////////////////////////////
+map.addSource('Ball Games', {
+        type: 'vector',
+        url: 'mapbox://aaron93.3msj2grd'
+    });
+    map.addLayer({
+        'id': 'Ball Games',
+        'type': 'circle',
+        'source': 'Ball Games',
+        'layout': {
+            'visibility': 'none'
+        },
+        'paint': {
+            'circle-radius': 8,
+            'circle-opacity': 0.6,
+            'circle-stroke-width': {
+			 	stops: [[8, 1], [13, 4], [16, 5]]
+			 },
+            'circle-color': '#F7E811'
+        },
+        'source-layer': 'Ball1GEO-b6a8n3',
+        'circle-radius': {
+            	property: 'EE2008',
+            	stops: [
+            		[{zoom: 9, value: 0}, 1],
+            		[{zoom: 9, value: 100}, 5],
+            		[{zoom: 12, value: 0}, 3],
+            		[{zoom: 12, value: 100}, 40],
+            		[{zoom: 16, value: 0}, 4],
+            		[{zoom: 16, value: 100}, 150],
+            		]
+        },
+    });
+////////////////////////////////////////////////////
+map.addSource('Combat Sports', {
+        type: 'vector',
+        url: 'mapbox://aaron93.1qsyfxzg'
+    });
+    map.addLayer({
+        'id': 'Combat Sports',
+        'type': 'circle',
+        'source': 'Combat Sports',
+        'layout': {
+            'visibility': 'none'
+        },
+        'paint': {
+            'circle-radius': 8,
+            'circle-opacity': 0.6,
+            'circle-stroke-width': {
+			 	stops: [[8, 1], [13, 4], [16, 5]]
+			 },
+            'circle-color': '#7618CA'
+        },
+        'source-layer': 'Combat1Geo-4cbkum',
+        'circle-radius': {
+            	property: 'EE2008',
+            	stops: [
+            		[{zoom: 9, value: 0}, 1],
+            		[{zoom: 9, value: 100}, 5],
+            		[{zoom: 12, value: 0}, 3],
+            		[{zoom: 12, value: 100}, 40],
+            		[{zoom: 16, value: 0}, 4],
+            		[{zoom: 16, value: 100}, 150],
+            		]
+        },
+    });
+////////////////////////////////////////////////////
+map.addSource('Outdoor Activities', {
+        type: 'vector',
+        url: 'mapbox://aaron93.9cnfwowl'
+    });
+    map.addLayer({
+        'id': 'Outdoor Activities',
+        'type': 'circle',
+        'source': 'Outdoor Activities',
+        'layout': {
+            'visibility': 'none'
+        },
+        'paint': {
+            'circle-radius': 8,
+            'circle-opacity': 0.6,
+            'circle-stroke-width': {
+			 	stops: [[8, 1], [13, 4], [16, 5]]
+			 },
+            'circle-color': '#63CA18'
+        },
+        'source-layer': 'Outdoor1Geo-1jjni0',
+        'circle-radius': {
+            	property: 'EE2008',
+            	stops: [
+            		[{zoom: 9, value: 0}, 1],
+            		[{zoom: 9, value: 100}, 5],
+            		[{zoom: 12, value: 0}, 3],
+            		[{zoom: 12, value: 100}, 40],
+            		[{zoom: 16, value: 0}, 4],
+            		[{zoom: 16, value: 100}, 150],
+            		]
+        },
+    });
+////////////////////////////////////////////////////
+map.addSource('Park Runs', {
+        type: 'vector',
+        url: 'mapbox://aaron93.b7ch3uae'
+    });
+    map.addLayer({
+        'id': 'Park Runs',
+        'type': 'circle',
+        'source': 'Park Runs',
+        'layout': {
+            'visibility': 'none'
+        },
+        'paint': {
+            'circle-radius': 8,
+            'circle-opacity': 0.6,
+            'circle-stroke-width': {
+			 	stops: [[8, 1], [13, 4], [16, 5]]
+			 },
+            'circle-color': '#03F7FE  '
+        },
+        'source-layer': 'Points2-1bo4h4',
+        'circle-radius': {
+            	property: 'EE2008',
+            	stops: [
+            		[{zoom: 9, value: 0}, 1],
+            		[{zoom: 9, value: 100}, 5],
+            		[{zoom: 12, value: 0}, 3],
+            		[{zoom: 12, value: 100}, 40],
+            		[{zoom: 16, value: 0}, 4],
+            		[{zoom: 16, value: 100}, 150],
+            		]
+        },
+    });
+////////////////////////////////////////////////////
+
+
+
+var mypopup = new mapboxgl.Popup({offset:[0,-10],closeButton: false});
+
+map.on('mouseover', 'All Facilities', function (e) {
+        mypopup
+            .setLngLat(e.features[0].geometry.coordinates)
+            .setHTML("<h3>" + e.features[0].properties.SiteName+ "</h3>Facilities: " + e.features[0].properties.SiteEquipmentName + "<br />Main Activities: " + e.features[0].properties.ActivityName + "<br />Opening Time: " + e.features[0].properties.StartTime + "<br />Closing Time: " + e.features[0].properties.EndTime + "<br />Site ID: " + e.features[0].properties.SiteID + "<br />Local Authority: " + e.features[0].properties.LocalAuthorityName )
+            .addTo(map);
+    });
+
+// Change the cursor to a pointer when the mouse is over the stations layer.
+map.on('mouseenter', 'All Facilities', function () {
+      map.getCanvas().style.cursor = 'pointer';
+});
+
+// Change it back to a pointer when it leaves and remove the popup window.
+map.on('mouseleave', 'All Facilities', function () {
+    map.getCanvas().style.cursor = '';
+    mypopup.remove();
+});
+////////////////////
+
+      // Displays brough name when clicked
+    map.on('click', 'All Facilities', function (e) {
+        new mapboxgl.Popup()
+           .setLngLat(e.lngLat)
+           .setHTML("<h3>"  + "</h3>Area (m2): " + e.features[0].properties.Area + "<br />Year Built: " + e.features[0].properties.YearBuilt + "<br />Latitude: " + e.features[0].properties.Latitude + "<br />Longitude: " + e.features[0].properties.Longitude + "<br />Post Code: " + e.features[0].properties.PostCode +"<br />Ward Name: " + e.features[0].properties.WardName )
+           .addTo(map);
+    });
+
+    map.on('mouseenter', 'All Facilities', function () {
+        map.getCanvas().style.cursor = 'pointer';
+    });
+
+    map.on('mouseleave', 'All Facilities', function () {
+        map.getCanvas().style.cursor = '';
+    });
+
+map.addControl(new MapboxGeocoder({
+    accessToken: mapboxgl.accessToken
+}));
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+map.on('mouseover', 'Gym & Leisure Activities', function (e) {
+        mypopup
+            .setLngLat(e.features[0].geometry.coordinates)
+            .setHTML("<h3>" + e.features[0].properties.SiteName+ "</h3>Facilities: " + e.features[0].properties.SiteEquipmentName + "<br />Main Activities: " + e.features[0].properties.ActivityName + "<br />Opening Time: " + e.features[0].properties.StartTime + "<br />Closing Time: " + e.features[0].properties.EndTime + "<br />Site ID: " + e.features[0].properties.SiteID + "<br />Local Authority: " + e.features[0].properties.LocalAuthorityName )
+            .addTo(map);
+    });
+
+// Change the cursor to a pointer when the mouse is over the stations layer.
+map.on('mouseenter', 'Gym & Leisure Activities', function () {
+      map.getCanvas().style.cursor = 'pointer';
+});
+
+// Change it back to a pointer when it leaves and remove the popup window.
+map.on('mouseleave', 'Gym & Leisure Activities', function () {
+    map.getCanvas().style.cursor = '';
+    mypopup.remove();
+});
+///////////////////////////
+    map.on('click', 'Gym & Leisure Activities', function (e) {
+        new mapboxgl.Popup()
+           .setLngLat(e.lngLat)
+           .setHTML("<h3>"  + "</h3>Area (m2): " + e.features[0].properties.Area + "<br />Year Built: " + e.features[0].properties.YearBuilt + "<br />Latitude: " + e.features[0].properties.Latitude + "<br />Longitude: " + e.features[0].properties.Longitude + "<br />Post Code: " + e.features[0].properties.PostCode +"<br />Ward Name: " + e.features[0].properties.WardName )
+           .addTo(map);
+    });
+
+    map.on('mouseenter', 'Gym & Leisure Activities', function () {
+        map.getCanvas().style.cursor = 'pointer';
+    });
+
+    map.on('mouseleave', 'Gym & Leisure Activities', function () {
+        map.getCanvas().style.cursor = '';
+    });
+
+map.addControl(new MapboxGeocoder({
+    accessToken: mapboxgl.accessToken
+}));
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+map.on('mouseover', 'Aquatic', function (e) {
+        mypopup
+            .setLngLat(e.features[0].geometry.coordinates)
+            .setHTML("<h3>" + e.features[0].properties.SiteName+ "</h3>Facilities: " + e.features[0].properties.SiteEquipmentName + "<br />Main Activities: " + e.features[0].properties.ActivityName + "<br />Opening Time: " + e.features[0].properties.StartTime + "<br />Closing Time: " + e.features[0].properties.EndTime + "<br />Site ID: " + e.features[0].properties.SiteID + "<br />Local Authority: " + e.features[0].properties.LocalAuthorityName )
+            .addTo(map);
+    });
+
+// Change the cursor to a pointer when the mouse is over the stations layer.
+map.on('mouseenter', 'Aquatic', function () {
+      map.getCanvas().style.cursor = 'pointer';
+});
+
+// Change it back to a pointer when it leaves and remove the popup window.
+map.on('mouseleave', 'Aquatic', function () {
+    map.getCanvas().style.cursor = '';
+    mypopup.remove();
+});
+///////////////////////////
+    map.on('click', 'Aquatic', function (e) {
+        new mapboxgl.Popup()
+           .setLngLat(e.lngLat)
+           .setHTML("<h3>"  + "</h3>Area (m2): " + e.features[0].properties.Area + "<br />Year Built: " + e.features[0].properties.YearBuilt + "<br />Latitude: " + e.features[0].properties.Latitude + "<br />Longitude: " + e.features[0].properties.Longitude + "<br />Post Code: " + e.features[0].properties.PostCode +"<br />Ward Name: " + e.features[0].properties.WardName )
+           .addTo(map);
+    });
+
+    map.on('mouseenter', 'Aquatic', function () {
+        map.getCanvas().style.cursor = 'pointer';
+    });
+
+    map.on('mouseleave', 'Aquatic', function () {
+        map.getCanvas().style.cursor = '';
+    });
+
+map.addControl(new MapboxGeocoder({
+    accessToken: mapboxgl.accessToken
+}));
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+map.on('mouseover', 'Ball Games', function (e) {
+        mypopup
+            .setLngLat(e.features[0].geometry.coordinates)
+            .setHTML("<h3>" + e.features[0].properties.SiteName+ "</h3>Facilities: " + e.features[0].properties.SiteEquipmentName + "<br />Main Activities: " + e.features[0].properties.ActivityName + "<br />Opening Time: " + e.features[0].properties.StartTime + "<br />Closing Time: " + e.features[0].properties.EndTime + "<br />Site ID: " + e.features[0].properties.SiteID + "<br />Local Authority: " + e.features[0].properties.LocalAuthorityName )
+            .addTo(map);
+    });
+
+// Change the cursor to a pointer when the mouse is over the stations layer.
+map.on('mouseenter', 'Ball Games', function () {
+      map.getCanvas().style.cursor = 'pointer';
+});
+
+// Change it back to a pointer when it leaves and remove the popup window.
+map.on('mouseleave', 'Ball Games', function () {
+    map.getCanvas().style.cursor = '';
+    mypopup.remove();
+});
+///////////////////////////
+    map.on('click', 'Ball Games', function (e) {
+        new mapboxgl.Popup()
+           .setLngLat(e.lngLat)
+           .setHTML("<h3>"  + "</h3>Area (m2): " + e.features[0].properties.Area + "<br />Year Built: " + e.features[0].properties.YearBuilt + "<br />Latitude: " + e.features[0].properties.Latitude + "<br />Longitude: " + e.features[0].properties.Longitude + "<br />Post Code: " + e.features[0].properties.PostCode +"<br />Ward Name: " + e.features[0].properties.WardName )
+           .addTo(map);
+    });
+
+    map.on('mouseenter', 'Ball Games', function () {
+        map.getCanvas().style.cursor = 'pointer';
+    });
+
+    map.on('mouseleave', 'Ball Games', function () {
+        map.getCanvas().style.cursor = '';
+    });
+
+map.addControl(new MapboxGeocoder({
+    accessToken: mapboxgl.accessToken
+}));
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+map.on('mouseover', 'Combat Sports', function (e) {
+        mypopup
+            .setLngLat(e.features[0].geometry.coordinates)
+            .setHTML("<h3>" + e.features[0].properties.SiteName+ "</h3>Facilities: " + e.features[0].properties.SiteEquipmentName + "<br />Main Activities: " + e.features[0].properties.ActivityName + "<br />Opening Time: " + e.features[0].properties.StartTime + "<br />Closing Time: " + e.features[0].properties.EndTime + "<br />Site ID: " + e.features[0].properties.SiteID + "<br />Local Authority: " + e.features[0].properties.LocalAuthorityName )
+            .addTo(map);
+    });
+
+// Change the cursor to a pointer when the mouse is over the stations layer.
+map.on('mouseenter', 'Combat Sports', function () {
+      map.getCanvas().style.cursor = 'pointer';
+});
+
+// Change it back to a pointer when it leaves and remove the popup window.
+map.on('mouseleave', 'Combat Sports', function () {
+    map.getCanvas().style.cursor = '';
+    mypopup.remove();
+});
+///////////////////////////
+    map.on('click', 'Combat Sports', function (e) {
+        new mapboxgl.Popup()
+           .setLngLat(e.lngLat)
+           .setHTML("<h3>"  + "</h3>Area (m2): " + e.features[0].properties.Area + "<br />Year Built: " + e.features[0].properties.YearBuilt + "<br />Latitude: " + e.features[0].properties.Latitude + "<br />Longitude: " + e.features[0].properties.Longitude + "<br />Post Code: " + e.features[0].properties.PostCode +"<br />Ward Name: " + e.features[0].properties.WardName )
+           .addTo(map);
+    });
+
+    map.on('mouseenter', 'Combat Sports', function () {
+        map.getCanvas().style.cursor = 'pointer';
+    });
+
+    map.on('mouseleave', 'Combat Sports', function () {
+        map.getCanvas().style.cursor = '';
+    });
+
+map.addControl(new MapboxGeocoder({
+    accessToken: mapboxgl.accessToken
+}));
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+map.on('mouseover', 'Outdoor Activities', function (e) {
+        mypopup
+            .setLngLat(e.features[0].geometry.coordinates)
+            .setHTML("<h3>" + e.features[0].properties.SiteName+ "</h3>Facilities: " + e.features[0].properties.SiteEquipmentName + "<br />Main Activities: " + e.features[0].properties.ActivityName + "<br />Opening Time: " + e.features[0].properties.StartTime + "<br />Closing Time: " + e.features[0].properties.EndTime + "<br />Site ID: " + e.features[0].properties.SiteID + "<br />Local Authority: " + e.features[0].properties.LocalAuthorityName )
+            .addTo(map);
+    });
+
+// Change the cursor to a pointer when the mouse is over the stations layer.
+map.on('mouseenter', 'Outdoor Activities', function () {
+      map.getCanvas().style.cursor = 'pointer';
+});
+
+// Change it back to a pointer when it leaves and remove the popup window.
+map.on('mouseleave', 'Outdoor Activities', function () {
+    map.getCanvas().style.cursor = '';
+    mypopup.remove();
+});
+///////////////////////////
+    map.on('click', 'Outdoor Activities', function (e) {
+        new mapboxgl.Popup()
+           .setLngLat(e.lngLat)
+           .setHTML("<h3>"  + "</h3>Area (m2): " + e.features[0].properties.Area + "<br />Year Built: " + e.features[0].properties.YearBuilt + "<br />Latitude: " + e.features[0].properties.Latitude + "<br />Longitude: " + e.features[0].properties.Longitude + "<br />Post Code: " + e.features[0].properties.PostCode +"<br />Ward Name: " + e.features[0].properties.WardName )
+           .addTo(map);
+    });
+
+    map.on('mouseenter', 'Outdoor Activities', function () {
+        map.getCanvas().style.cursor = 'pointer';
+    });
+
+    map.on('mouseleave', 'Outdoor Activities', function () {
+        map.getCanvas().style.cursor = '';
+    });
+
+map.addControl(new MapboxGeocoder({
+    accessToken: mapboxgl.accessToken
+}));
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+    map.on('click', 'Park Runs', function (e) {
+        new mapboxgl.Popup()
+           .setLngLat(e.lngLat)
+           .setHTML("<h3>"  + e.features[0].properties.Name + "</h3> <a href='http://www.parkrun.org.uk/' target='_blank'>Register here before you run!</a>" + "<br />Park Run Starts at 9:00 AM on Saturday" )
+           .addTo(map);
+    });
+
+    map.on('mouseenter', 'Park Runs', function () {
+        map.getCanvas().style.cursor = 'pointer';
+    });
+
+    map.on('mouseleave', 'Park Runs', function () {
+        map.getCanvas().style.cursor = '';
+    });
+
+map.addControl(new MapboxGeocoder({
+    accessToken: mapboxgl.accessToken
+}));
+});
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+var toggleableLayerIds = [  'All Facilities',  'Gym & Leisure Activities', 'Aquatic', 'Ball Games', 'Combat Sports', 'Outdoor Activities', 'Park Runs'];
+
+for (var i = 0; i < toggleableLayerIds.length; i++) {
+    var id = toggleableLayerIds[i];
+
+    var link = document.createElement('a');
+    link.href = '#';
+    link.className = 'active';
+    link.textContent = id;
+
+    link.onclick = function (e) {
+        var clickedLayer = this.textContent;
+        e.preventDefault();
+        e.stopPropagation();
+
+        var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
+
+        if (visibility === 'visible') {
+            map.setLayoutProperty(clickedLayer, 'visibility', 'none');
+            this.className = '';
+        } else {
+            this.className = 'active';
+            map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
+        }
+    };
+
+    var layers = document.getElementById('menu');
+    layers.appendChild(link);
+}
+
+/////////////////////////////////////////////////////
+
+</script>
+
+</body>
+</html>
+
+<style>
+    .map-overlay {
+        font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+        position: fixed;
+        width: 25%;
+        top: 0;
+        left: 0;
+        padding: 10px;
+    }
+    
+    .map-overlay .map-overlay-inner {
+        background-color: rgba(255, 255, 255, 0.80);
+        box-shadow:0 1px 2px rgba(255, 255, 255, 0.20);
+        border-radius: 10px;
+        padding: 10px;
+        margin-bottom: 10px;
+        color: black;
+    }
+      .button {
+      background-color: rgba(255, 255, 255, 0.80);
+      box-shadow:0 1px 2px rgba(255, 255, 255, 0.20);
+      border: none;
+      padding: 10px 24px;
+      border-radius: 8px;
+      color: black;
+      padding: 10px 20px;
+      text-align: right;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      display: block;
+    }
+    
+    .Description-Box {
+        font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        background-color: rgba(255, 255, 255, 0.80);
+        box-shadow:0 1px 2px rgba(255, 255, 255, 0.20);
+        border-radius: 10px;
+        padding: 5px;
+        margin-bottom: 10px;
+        color: black;
+    
+    }
+    
+</style>
+
+
+
+
+
+
