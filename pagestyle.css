@@ -10,11 +10,20 @@
   text-align:center;
   padding:10px;
 }
-#enter
+#enterButton
 {
-  font-size: 4em;
+  text-decoration:none;
+  font-size: 52px;
   text-align: center;
+  color: #EEEEEE;
+  background-color:#FF374D;
+  float: right;
+  padding-top: 24px;
+  padding-right: 16px;
+  padding-bottom: 24px;
+  padding-left: 16px; 
 }
+
 
 #logo
 {
@@ -33,7 +42,7 @@
 {
   position: absolute;
   height: 260px;
-  left: 54%;
+  right: 1%;
   top: 0;
 }
 /* ************* */
