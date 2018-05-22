@@ -1,7 +1,7 @@
 .title
 {
   font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
-  position:relative;
+  position:inherit;
   /*text-align: center;*/
 }
 .links
@@ -22,6 +22,7 @@
   padding-right: 16px;
   padding-bottom: 24px;
   padding-left: 16px; 
+  margin-right: 5%;
 }
 
 #logo
@@ -48,8 +49,9 @@
 {
   position: absolute;
   height: 260px;
-  right: 8%;
+  left: 2%;
   top: 0;
+  margin-bottom: 100px;
 }
 /* ************* */
 body
