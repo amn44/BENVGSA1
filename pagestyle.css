@@ -27,11 +27,12 @@
 
 #logo
 {
-  font-size:0;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
+  position: absolute;
+    height: 260px;
+  top: 0;
+  right: 1%;
 }
+
 
 #logo-container
 {
