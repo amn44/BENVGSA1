@@ -81,15 +81,23 @@ h1
 #textNarrative
 {
   font: 18px/38px 'Helvetica Neue', Arial, Helvetica, sans-serif;
-  /* font-weight: bold; */
-  color: #CCCCCC;
+  font-weight: bold;
+  color: #EEEEEE;
   width: 65%;
   margin-left: 35%;
   margin-bottom: 50px;
   padding: 2px;
-  /* background-color: #5E5E5E; */
+  background-color: #6bbaff75;
+  /* previous background and border
+  color: #CCCCCC;
+  background-color: #5e5e5e85;
   border-bottom: #5E5E5E solid 2px;
   border-top: #5E5E5E solid 2px;
+  */
+}
+#firstHeader
+{
+  margin-top: 260px;
 }
 
 #mapboxParticipation
