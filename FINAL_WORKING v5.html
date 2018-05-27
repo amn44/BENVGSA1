@@ -2,10 +2,13 @@
 <html>
 <head>
     <meta charset='utf-8' />
-    <title>Sports Participation in London</title> <!--  map title -->
+    <title>Sports Participation in London</title>
     <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.43.0/mapbox-gl.js'></script>
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.43.0/mapbox-gl.css' rel='stylesheet' />
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <!-- Numeric JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/numeric/1.2.6/numeric.min.js"></script>
     <style>
 body { margin:0; padding:0; }
 #map { position:absolute; top:0; bottom:0; width:100%;}
@@ -33,7 +36,7 @@ body { margin:0; padding:0; }
      z-index: -1;
   }
 
-  .key_fig { /* Sets the style for the key */
+  .key_fig { /* style for the key buttons */
     background-color: #fff7fb;
     border-style: solid
     padding: 10px 24px;
@@ -48,8 +51,8 @@ body { margin:0; padding:0; }
     display: block;
     border-color: black;
 }
-/* chnages the background colour to match the one used in the map */
-.key_fig2 {background-color: #ece7f2;} 
+/* changes the background colour for each of the key buttons */
+.key_fig2 {background-color: #ece7f2;}
 .key_fig3 {background-color: #d0d1e6;}
 .key_fig4 {background-color: #a6bddb;}
 .key_fig5 {background-color: #74a9cf;}
@@ -59,7 +62,7 @@ body { margin:0; padding:0; }
 .key_fig9 {background-color: #023858;}
 
 
-.Key { /* sets the position of the key */
+.Key { /* style for the key background */
       font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
       position: absolute;
       display: block;
@@ -73,7 +76,7 @@ body { margin:0; padding:0; }
       margin-bottom: 20px;
       color: black;}
 
-.Description-Box { /* sets the position and style of the description box */
+.Description-Box { /* style of the description box */
       font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
       position: absolute;
       bottom: 0;
@@ -95,61 +98,58 @@ body { margin:0; padding:0; }
 
 <div class='map-overlay top'>
     <div class='map-overlay-inner'>
-        <h2>Sports Participation in London</h2> <!--  Map title -->
-      <!--  Sets all the radio buttons -->
-      <h2>Age</h2><!--  Sub title -->
-      <input type="radio" name="layers" id="layer3" value="2005_16_25" checked><label>2005 16-25 years</label> 
+        <h2>Sports Participation in London</h2> <!-- title -->
+
+      <h2>Age</h2> <!-- radio buttons for age layers -->
+      <input type="radio" name="layers" id="layer3" value="2005_16_25" checked><label>2005 16-25 years</label>
       <input type="radio" name="layers" id="layer1" value="2015_16_25"><label>2015 16-25 years </label>
       <br>
       <input type="radio" name="layers" id="layer4" value="2005_45_54"><label>2005 45-54 years </label>
       <input type="radio" name="layers" id="layer2" value="2015_45_54"><label>2015 45-54 years </label>
-      <h2>Ethnicity</h2> <!--  Sub title -->
+      <h2>Ethnicity</h2>
       <input type="radio" name="layers" id="layer5" value="2005_White"><label> 2005  White </label>
       <input type="radio" name="layers" id="layer6" value="2005_BAME"><label> 2005  BAME </label>
       <br>
       <input type="radio" name="layers" id="layer7" value="2015_White"><label> 2015 White </label>
-     <input type="radio" name="layers" id="layer8" value="2015_BAME"><label> 2015 BAME 
-      <br>*BAME- Black, Asian and minority ethnic.</label> <!--  section description -->
-     <h2>Gender</h2> <!--  Sub title -->
+     <input type="radio" name="layers" id="layer8" value="2015_BAME"><label> 2015 BAME
+      <br>*BAME- Black, Asian and minority ethnic.</label> <!-- definition of BAME -->
+     <h2>Gender</h2> <!-- radio buttons for gender layers -->
      <input type="radio" name="layers" id="layer9" value="2014_M_Act"><label>2014 Male Active</label>
      <input type="radio" name="layers" id="layer10" value="2014_F_Act"><label>2014 Female Active</label>
      <br>
      <input type="radio" name="layers" id="layer11" value="2014_M_Ina"><label>2014 Male Inactive</label>
      <input type="radio" name="layers" id="layer12" value="2014_F_Ina"><label>2014 Female Inactive</label>
      <br>
-     <h2>   Activity</h2> <!--  Sub title -->
-     <input type="radio" name="layers" id="layer13" value="1516_M_1x3"><label>2015 Male 1x30 mins session per week</label>
+     <h2>   Activity</h2> <!-- radio buttons for activity layers -->
+     <input type="radio" name="layers" id="layer13" value="1516_M_1x3"><label>2015 Male 1x30 mins sessions per week</label>
      <br>
-     <input type="radio" name="layers" id="layer14" value="1516_F_1x3"><label>2015 Female 1x30 mins session per week</label>
+     <input type="radio" name="layers" id="layer14" value="1516_F_1x3"><label>2015 Female 1x30 mins sessions per week</label>
      <br>
-     <input type="radio" name="layers" id="layer15" value="1516_M_3x3"><label>2015 Male 3x30 mins session per week</label>
+     <input type="radio" name="layers" id="layer15" value="1516_M_3x3"><label>2015 Male 3x30 mins sessions per week</label>
      <br>
-     <input type="radio" name="layers" id="layer16" value="1516_F_3x3"><label>2015 Female 3x30 mins session per week</label>
+     <input type="radio" name="layers" id="layer16" value="1516_F_3x3"><label>2015 Female 3x30 mins sessions per week</label>
      <br>
-     <!--  adds the data source image -->
-    <img src="http://craigwhittakermp.co.uk/wp-content/uploads/2017/12/Sport20England.jpg" 
-    style="width:100%;height:50%;image-rendering:-webkit-optimize-contrast;" >
-    <!--   sets references on the map -->
-         <p class="credit">Data: Sport England Active People Survey. Cartography: <a href="https://data.london.gov.uk/dataset/statistical-gis-boundary-files-london">London Datastore</a>.</p>
+     <!-- source and referncing information -->
+    <img src="http://craigwhittakermp.co.uk/wp-content/uploads/2017/12/Sport20England.jpg" style="width:100%;height:50%;image-rendering:-webkit-optimize-contrast;" >
+         <p class="credit">Data: Sport England Active People Survey. Cartography: <a href="https://data.london.gov.uk/dataset/statistical-gis-boundary-files-london">London Datastore</a>.</p>. 
 </div>
 </div>
 </div>
-    <!--   sets the map legend -->
-    <div class='Key'>
-    <center><h2>Key</h2></center>
-    <center><button class='key_fig'> No Data</button></center> 
+<div class='Key'> <!-- defines the key -->
+        <center><h2>Key</h2></center>
+    <center><button class='key_fig'> No Data</button></center>
     <center><button class='key_fig key_fig2'>  <  10%  </button></center>
     <button class='key_fig key_fig3'> 11% - 20% </button>
     <button class='key_fig key_fig4'> 21% - 30% </button>
     <button class='key_fig key_fig5'> 31% - 40% </button>
     <button class='key_fig key_fig6'> 41% - 50% </button>
-    <button class='key_fig key_fig7'> 51% - 60% </button> 
-    <button class='key_fig key_fig8'> 61% - 70% </button>  
-    <button class='key_fig key_fig9'> 71% - 80% </button>      
+    <button class='key_fig key_fig7'> 51% - 60% </button>
+    <button class='key_fig key_fig8'> 61% - 70% </button>
+    <button class='key_fig key_fig9'> 71% - 80% </button>
     </div>
-    <!--   sets the discription box with an inital starting narrative -->
+    <!-- adds the intial text to the description box-->
     <div class='Description-Box'>
-        <p style="margin-top:0px;"> <label id='narrative'>Welcome to this map! Please feel free to explore the variables on the left had side to understand participation in sport in London.</p></label>
+        <p style="margin-top:0px;"> <label id='narrative'>Welcome to this map! Please feel free to explore the variables on the left had side to understand participation in sport in London. You can also explore facility types in each borough by clicking on each borough.</p></label>
     </div>
 
     <!--  MAP DIV -->
@@ -159,35 +159,35 @@ body { margin:0; padding:0; }
     <script>
 
 
-    mapboxgl.accessToken = 'pk.eyJ1IjoiaGFubmFoZ3VtYmxlIiwiYSI6ImNqY2oweWtibDJzbmszM3JxemlncXo5ZDAifQ.h-gteOJJaIq4GxkctofuOg'; //Mapbox Public Access token here
+    mapboxgl.accessToken = 'pk.eyJ1IjoiaGFubmFoZ3VtYmxlIiwiYSI6ImNqY2oweWtibDJzbmszM3JxemlncXo5ZDAifQ.h-gteOJJaIq4GxkctofuOg'; //Mapbox access Token
 
     var map = new mapboxgl.Map({
-    container: 'map',
+    container: 'map', 
     style: 'mapbox://styles/hannahgumble/cjh8wym0o2ht02smwx2k99cex', // stylesheet location
-    center: [-0.163, 51.439], // starting position
+    center: [-0.163, 51.439], // starting position [lng, lat]
     zoom: 9.1 // starting zoom
     });
 
 
     map.on('load', function() {
-      map.addControl(new mapboxgl.NavigationControl()); //Adds navigation Controls
-      map.scrollZoom.disable(); //Disables scroll zoom
+      map.addControl(new mapboxgl.NavigationControl()); //adds the navigation buttons to the map
+      map.scrollZoom.disable(); //disables the scroll zoom
 
-     // Load the participation data
+    // Load the participation data
       map.addLayer({
-        id: '2015_16_25', //has the same ID as the button
+        id: '2015_16_25', //specifies the coloumn of data
         type: 'fill',
         source: {
           type: 'vector',
-          url: 'mapbox://hannahgumble.334cze9r' // Mapbox Tileset ID
+          url: 'mapbox://hannahgumble.334cze9r'
         },
-        'source-layer': 'Sports_Data-bzkfs7', // Tilesets
+        'source-layer': 'Sports_Data-bzkfs7', // defines the source layer
           'paint': {
             'fill-color':{
             property: '2015_16_25',
-            type: 'interval', // interval method for filling the color
+            type: 'interval', 
             stops: [
-                [0.0, '#fff7fb'],
+                [0.0, '#fff7fb'], //defines the colour of each segment
                 [0.1, '#ece7f2'],
                 [0.2, '#d0d1e6'],
                 [0.3, '#a6bddb'],
@@ -198,7 +198,7 @@ body { margin:0; padding:0; }
                 [0.8, '#023858'],
                 ]
                 },
-            'fill-opacity': 0.0, //Loads the layer as clear
+            'fill-opacity': 0.0, //loads each layer as transparent
              }
             }
       );
@@ -264,7 +264,7 @@ body { margin:0; padding:0; }
         type: 'fill',
         source: {
           type: 'vector',
-          url: 'mapbox://hannahgumble.334cze9r' 
+          url: 'mapbox://hannahgumble.334cze9r'
         },
         'source-layer': 'Sports_Data-bzkfs7',
           'paint': {
@@ -376,7 +376,7 @@ body { margin:0; padding:0; }
         type: 'fill',
         source: {
           type: 'vector',
-          url: 'mapbox://hannahgumble.334cze9r' 
+          url: 'mapbox://hannahgumble.334cze9r'
         },
         'source-layer': 'Sports_Data-bzkfs7',
           'paint': {
@@ -462,7 +462,7 @@ body { margin:0; padding:0; }
           type: 'vector',
           url: 'mapbox://hannahgumble.334cze9r'
         },
-        'source-layer': 'Sports_Data-bzkfs7', 
+        'source-layer': 'Sports_Data-bzkfs7',
           'paint': {
             'fill-color':{
             property: '2014_M_Ina',
@@ -518,7 +518,7 @@ body { margin:0; padding:0; }
           type: 'vector',
           url: 'mapbox://hannahgumble.334cze9r'
         },
-        'source-layer': 'Sports_Data-bzkfs7', 
+        'source-layer': 'Sports_Data-bzkfs7',
           'paint': {
             'fill-color':{
             property: '1516_M_1x3',
@@ -544,9 +544,9 @@ body { margin:0; padding:0; }
         type: 'fill',
         source: {
           type: 'vector',
-          url: 'mapbox://hannahgumble.334cze9r' 
+          url: 'mapbox://hannahgumble.334cze9r'
         },
-        'source-layer': 'Sports_Data-bzkfs7', 
+        'source-layer': 'Sports_Data-bzkfs7',
           'paint': {
             'fill-color':{
             property: '1516_F_1x3',
@@ -574,7 +574,7 @@ body { margin:0; padding:0; }
           type: 'vector',
           url: 'mapbox://hannahgumble.334cze9r'
         },
-        'source-layer': 'Sports_Data-bzkfs7', 
+        'source-layer': 'Sports_Data-bzkfs7',
           'paint': {
             'fill-color':{
             property: '1516_M_3x3',
@@ -600,7 +600,7 @@ body { margin:0; padding:0; }
         type: 'fill',
         source: {
           type: 'vector',
-          url: 'mapbox://hannahgumble.334cze9r' 
+          url: 'mapbox://hannahgumble.334cze9r'
         },
         'source-layer': 'Sports_Data-bzkfs7',
           'paint': {
@@ -624,10 +624,10 @@ body { margin:0; padding:0; }
             }
       );
 
-//Event listener for layer switch - sets the fill opacity as clear for all the layers that dont want to been seen
+//Event listener for layer switch
 document.getElementById("layer1").addEventListener("click", function(){
-map.setPaintProperty('2015_16_25','fill-opacity',0.7);
-map.setPaintProperty('2015_45_54','fill-opacity',0);
+map.setPaintProperty('2015_16_25','fill-opacity',0.7); // fill opacity for the layer se to visable
+map.setPaintProperty('2015_45_54','fill-opacity',0); // each other layer set to transparent
 map.setPaintProperty('2005_16_25','fill-opacity',0);
 map.setPaintProperty('2005_45_54','fill-opacity',0);
 map.setPaintProperty('2005_White','fill-opacity',0);
@@ -642,8 +642,7 @@ map.setPaintProperty('1516_M_1x3','fill-opacity',0);
 map.setPaintProperty('1516_F_1x3','fill-opacity',0);
 map.setPaintProperty('1516_M_3x3','fill-opacity',0);
 map.setPaintProperty('1516_F_3x3','fill-opacity',0);
-// shows narrative to accompany the layer being shown
-document.getElementById('narrative').innerHTML = "Looking at the total participation by age data for 16 to 25 year olds in 2015 highlights that the highest participation rate is in Wandsworth, with 74% of 16 to 25 year olds taking part in sport. The lowest participation rate is at 42% in Newham.";
+document.getElementById('narrative').innerHTML = "Wandsworth has the highest participation rate for 16 to 25 year olds, with 74% of 16 to 25 year olds taking part in sport. Newham has the lowest participation rate at 42%."; // narriative changes to fit the layer being shown
 });
 
 document.getElementById("layer2").addEventListener("click", function(){
@@ -683,7 +682,7 @@ map.setPaintProperty('1516_M_1x3','fill-opacity',0);
 map.setPaintProperty('1516_F_1x3','fill-opacity',0);
 map.setPaintProperty('1516_M_3x3','fill-opacity',0);
 map.setPaintProperty('1516_F_3x3','fill-opacity',0);
-document.getElementById('narrative').innerHTML = "Total Participation by age in 2005 highlights that Islington has the lowest participation for 16-26 years old at 67%, whereas Richmond upon Thames, Kingston upon Thames and Sutton have the highest at 67%, 66% and 60% respectively.";
+document.getElementById('narrative').innerHTML = "Total Participation by age in 2005 highlights that Islington has the lowest participation for 16-26 years old at 39%, whereas Richmond upon Thames, Kingston upon Thames and Sutton have the highest at 67%, 66% and 60% respectively";
 });
 
 document.getElementById("layer4").addEventListener("click", function(){
@@ -763,7 +762,7 @@ map.setPaintProperty('1516_M_1x3','fill-opacity',0);
 map.setPaintProperty('1516_F_1x3','fill-opacity',0);
 map.setPaintProperty('1516_M_3x3','fill-opacity',0);
 map.setPaintProperty('1516_F_3x3','fill-opacity',0);
-document.getElementById('narrative').innerHTML = "Average participation rate across London is 40%. Wandsworth has the highest participation rate at 52% followed by Richmond upon Thames at 50%. New has the lowest participation rate at 26%.";
+document.getElementById('narrative').innerHTML = "The average participation rate across London is 40%. Wandsworth has the highest participation rate at 52% followed by Richmond upon Thames at 50%. Newham has the lowest participation rate at 26%.";
 });
 
 document.getElementById("layer8").addEventListener("click", function(){
@@ -803,7 +802,7 @@ map.setPaintProperty('1516_M_1x3','fill-opacity',0);
 map.setPaintProperty('1516_F_1x3','fill-opacity',0);
 map.setPaintProperty('1516_M_3x3','fill-opacity',0);
 map.setPaintProperty('1516_F_3x3','fill-opacity',0);
-document.getElementById('narrative').innerHTML = "In 2014 63% of the male population were classed as active, completing 150 minuets of sport a week. The highest proportion of active male populations were Richmond Upon Thames at 77% and Southwark and Hammersmith and Fulham at 71%. The lowest boroughs were Newham and Redbridge at 57%, 6% below the average for England.";
+document.getElementById('narrative').innerHTML = "In 2014 63% of the male population were classed as active, completing 150 minutes of sport a week. The highest proportion of active male populations were Richmond Upon Thames at 77% and Southwark and Hammersmith and Fulham at 71%. The lowest boroughs were Newham and Redbridge at 57%, 6% below the average for England.";
 });
 
 document.getElementById("layer10").addEventListener("click", function(){
@@ -843,7 +842,7 @@ map.setPaintProperty('1516_M_1x3','fill-opacity',0);
 map.setPaintProperty('1516_F_1x3','fill-opacity',0);
 map.setPaintProperty('1516_M_3x3','fill-opacity',0);
 map.setPaintProperty('1516_F_3x3','fill-opacity',0);
-document.getElementById('narrative').innerHTML = "An Inactive person participates in less than 30 minuets of sport per week, in London 23% of the male population were inactive. The largest proportion of inactive males were located in Barking and Dagenham (39%), whereas Camden only had 16% of the male population who were inactive.";
+document.getElementById('narrative').innerHTML = "An Inactive person participates in less than 30 minutes of sport per week, in London 23% of the male population were inactive. The largest proportion of inactive males were located in Barking and Dagenham (39%), whereas Camden only had 16% of the male population who were inactive.";
 });
 
 document.getElementById("layer12").addEventListener("click", function(){
@@ -863,7 +862,7 @@ map.setPaintProperty('1516_M_1x3','fill-opacity',0);
 map.setPaintProperty('1516_F_1x3','fill-opacity',0);
 map.setPaintProperty('1516_M_3x3','fill-opacity',0);
 map.setPaintProperty('1516_F_3x3','fill-opacity',0);
-document.getElementById('narrative').innerHTML = "An Inactive person participates in less than 30 minuets of sport per week. In 2014 Brent had the highest proportion of inactive females at 39%, 8% above the average for London. Richmond Upon Thames has the lowest amount of Inactive females at 17%.";
+document.getElementById('narrative').innerHTML = "An Inactive person participates in less than 30 minutes of sport per week. In 2014 Brent had the highest proportion of inactive females at 39%, 8% above the average for London. Richmond Upon Thames has the lowest amount of Inactive females at 17%.";
 });
 
 document.getElementById("layer13").addEventListener("click", function(){
@@ -883,7 +882,7 @@ map.setPaintProperty('1516_M_1x3','fill-opacity',0.7);
 map.setPaintProperty('1516_F_1x3','fill-opacity',0);
 map.setPaintProperty('1516_M_3x3','fill-opacity',0);
 map.setPaintProperty('1516_F_3x3','fill-opacity',0);
-document.getElementById('narrative').innerHTML = "Wandsworth has the highest proportion of males that participate in 1 30 minute activity a week at 61% followed by 59 % in Richmond Upon Thames. The average for London is 43%. Brent lies 17% below this at 26%.";
+document.getElementById('narrative').innerHTML = "Wandsworth has the highest proportion of males that participate in 1 30 minute activity a week at 61% followed by 59 % in Richmond Upon Thames. The average for London is 43%, Brent lies 17% below this at 26%.";
 });
 
 document.getElementById("layer14").addEventListener("click", function(){
@@ -923,7 +922,7 @@ map.setPaintProperty('1516_M_1x3','fill-opacity',0);
 map.setPaintProperty('1516_F_1x3','fill-opacity',0);
 map.setPaintProperty('1516_M_3x3','fill-opacity',0.7);
 map.setPaintProperty('1516_F_3x3','fill-opacity',0);
-document.getElementById('narrative').innerHTML = "In London 22% of Males participate in 3 30 minute session of sport per week. Merton and Wandsorth are 10% above the Average for London at 33%, whereas, in Redbridge, only 14% of Males participate in 3 30 minute session of sport per week.";
+document.getElementById('narrative').innerHTML = "In London 22% of Males participate in 3 30 minute sessions of sport per week. Merton and Wandsorth are 10% above the Average for London at 33%, whereas, in Redbridge, only 14% of Males participate in 3 30 minute sessions of sport per week.";
 });
 
 document.getElementById("layer16").addEventListener("click", function(){
@@ -943,15 +942,26 @@ map.setPaintProperty('1516_M_1x3','fill-opacity',0);
 map.setPaintProperty('1516_F_1x3','fill-opacity',0);
 map.setPaintProperty('1516_M_3x3','fill-opacity',0);
 map.setPaintProperty('1516_F_3x3','fill-opacity',0.7);
-document.getElementById('narrative').innerHTML = "An average of 13% of females in London participate in 3 30 minute session of sport per week. The Boroughs with the lowest participation are Sutton and Barking and Dagenham at 9%, whereas, in Kensington and Chelsea, 29% of females participate in 3 30 minute session of sport per week.";
+document.getElementById('narrative').innerHTML = "An average of 13% of females in London participate in 3 30 minute sessions of sport per week. The Boroughs with the lowest participation are Sutton and Barking and Dagenham at 9%, whereas, in Kensington and Chelsea, 29% of females participate in 3 30 minute sessions of sport per week.";
 });
 
-// Displays brough name when clicked in popup
+
+
+// Popup
     map.on('click', '2015_16_25', function (e) {
-        new mapboxgl.Popup()
+      //checks to see if the bpopup is already showing, if so removes it
+        if (document.contains(document.getElementById("tester"))) { 
+            document.getElementById("tester").remove();
+          }
+        var boroughClick = e.features[0].properties.NAME; // displays borough name
+        var graphData = boroughClick.replace(/\s/g, ''); // sets the graph data variable
+        var graph = '<b>' + boroughClick + '</b>' + '<div id="tester" style="width:450px;height:280px;"></div>'; //sets the size of the div popup
+        var popup = new mapboxgl.Popup()
             .setLngLat(e.lngLat)
-            .setHTML(e.features[0].properties.NAME)
-            .addTo(map);
+            .setHTML(graph);
+             popup.addTo(map);
+            // plots the new pie chart
+        Plotly.newPlot('tester', [dataDict[graphData]], layout); 
     });
 
     map.on('mouseenter', '2015_16_25', function () {
@@ -963,7 +973,158 @@ document.getElementById('narrative').innerHTML = "An average of 13% of females i
     });
 
 });
+// sets the layout of the pie chart
+var layout = {
+  autosize: false,
+  title : 'Facilities', // adds the title
+  titlefont: {
+    size: 12, // sets the title size
+  },
+  width: 450, // sets the width of the chart
+  height: 285, // sets the height of the chart
+  margin: { // defines the margins around the pic chart
+    l: 0,
+    r: 0,
+    b: 70,// padding at the bottom to ensure the labels show
+    t: 30, // padding at the top to show the title
+    pad: 0
+  },};
 
+// dictionary holding the data for the pie chart
+var dataDict = {
+ "BarkingandDagenham" : {
+  values: [16,23,0,2,3,0,22,1,4],
+  labels: [' Health and Fitness Suite','Grass Pitches','Athletics Tracks','Tennis Courts','Artificial Grass Pitch','Golf','Sports Hall','Studio','Swimming Pool'],
+  type: 'pie'
+}, "Barnet" : {
+  values: [22,87,3,9,13,3,44,2,13],
+  labels: [' Health and Fitness Suite','Grass Pitches','Athletics Tracks','Tennis Courts','Artificial Grass Pitch','Golf','Sports Hall','Studio','Swimming Pool'],
+  type: 'pie'
+}, "Bexley" : {
+  values: [15,64,2,6,4,5,28,7,6],
+  labels: [' Health and Fitness Suite','Grass Pitches','Athletics Tracks','Tennis Courts','Artificial Grass Pitch','Golf','Sports Hall','Studio','Swimming Pool'],
+  type: 'pie'
+}, "Brent" : {
+  values: [14,40,0,6,6,0,27,2,3],
+  labels: [' Health and Fitness Suite','Grass Pitches','Athletics Tracks','Tennis Courts','Artificial Grass Pitch','Golf','Sports Hall','Studio','Swimming Pool'],
+  type: 'pie'
+}, "Bromley" : {
+  values: [32,53,0,3,10,11,62,3,11],
+  labels: [' Health and Fitness Suite','Grass Pitches','Athletics Tracks','Tennis Courts','Artificial Grass Pitch','Golf','Sports Hall','Studio','Swimming Pool'],
+  type: 'pie'
+}, "Camden" : {
+  values: [23,17,2,1,4,1,27,4,7],
+  labels: [' Health and Fitness Suite','Grass Pitches','Athletics Tracks','Tennis Courts','Artificial Grass Pitch','Golf','Sports Hall','Studio','Swimming Pool'],
+  type: 'pie'
+}, "CityofLondon" : {
+  values: [10,6,0,1,1,1,5,0,9],
+  labels: [' Health and Fitness Suite','Grass Pitches','Athletics Tracks','Tennis Courts','Artificial Grass Pitch','Golf','Sports Hall','Studio','Swimming Pool'],
+  type: 'pie'
+}, "Croydon" : {
+  values: [27,54,2,11,10,11,34,5,11],
+  labels: [' Health and Fitness Suite','Grass Pitches','Athletics Tracks','Tennis Courts','Artificial Grass Pitch','Golf','Sports Hall','Studio','Swimming Pool'],
+  type: 'pie'
+}, "Ealing" : {
+  values: [25,49,1,0,4,9,34,3,11],
+  labels: [' Health and Fitness Suite','Grass Pitches','Athletics Tracks','Tennis Courts','Artificial Grass Pitch','Golf','Sports Hall','Studio','Swimming Pool'],
+  type: 'pie'
+}, "Enfield" : {
+  values: [22,56,2,7,5,2,43,1,4],
+  labels: [' Health and Fitness Suite','Grass Pitches','Athletics Tracks','Tennis Courts','Artificial Grass Pitch','Golf','Sports Hall','Studio','Swimming Pool'],
+  type: 'pie'
+}, "Greenwich" : {
+  values: [23,42,2,6,3,4,32,0,8],
+  labels: [' Health and Fitness Suite','Grass Pitches','Athletics Tracks','Tennis Courts','Artificial Grass Pitch','Golf','Sports Hall','Studio','Swimming Pool'],
+  type: 'pie'
+}, "Hackney" : {
+  values: [12,20,2,0,3,4,11,1,2],
+  labels: [' Health and Fitness Suite','Grass Pitches','Athletics Tracks','Tennis Courts','Artificial Grass Pitch','Golf','Sports Hall','Studio','Swimming Pool'],
+  type: 'pie'
+}, "HammersmithandFulham" : {
+  values: [16,15,0,2,5,1,23,1,10],
+  labels: [' Health and Fitness Suite','Grass Pitches','Athletics Tracks','Tennis Courts','Artificial Grass Pitch','Golf','Sports Hall','Studio','Swimming Pool'],
+  type: 'pie'
+}, "Haringey" : {
+  values: [15,26,1,2,2,3,24,3,7],
+  labels: [' Health and Fitness Suite','Grass Pitches','Athletics Tracks','Tennis Courts','Artificial Grass Pitch','Golf','Sports Hall','Studio','Swimming Pool'],
+  type: 'pie'
+}, "Harrow" : {
+  values: [12,54,0,5,1,1,18,0,9],
+  labels: [' Health and Fitness Suite','Grass Pitches','Athletics Tracks','Tennis Courts','Artificial Grass Pitch','Golf','Sports Hall','Studio','Swimming Pool'],
+  type: 'pie'
+}, "Havering" : {
+  values: [12,43,1,4,3,5,19,2,5],
+  labels: [' Health and Fitness Suite','Grass Pitches','Athletics Tracks','Tennis Courts','Artificial Grass Pitch','Golf','Sports Hall','Studio','Swimming Pool'],
+  type: 'pie'
+}, "Hillingdon" : {
+  values: [24,73,0,0,6,1,40,3,17],
+  labels: [' Health and Fitness Suite','Grass Pitches','Athletics Tracks','Tennis Courts','Artificial Grass Pitch','Golf','Sports Hall','Studio','Swimming Pool'],
+  type: 'pie'
+}, "Hounslow" : {
+  values: [21,42,2,1,8,8,29,1,7],
+  labels: [' Health and Fitness Suite','Grass Pitches','Athletics Tracks','Tennis Courts','Artificial Grass Pitch','Golf','Sports Hall','Studio','Swimming Pool'],
+  type: 'pie'
+}, "Islington" : {
+  values: [21,10,0,3,1,1,31,2,6],
+  labels: [' Health and Fitness Suite','Grass Pitches','Athletics Tracks','Tennis Courts','Artificial Grass Pitch','Golf','Sports Hall','Studio','Swimming Pool'],
+  type: 'pie'
+}, "KensingtonandChelsea" : {
+  values: [17,10,1,1,4,3,13,0,10],
+  labels: [' Health and Fitness Suite','Grass Pitches','Athletics Tracks','Tennis Courts','Artificial Grass Pitch','Golf','Sports Hall','Studio','Swimming Pool'],
+  type: 'pie'
+}, "KingstonuponThames" : {
+  values: [15,35,1,4,1,7,21,1,5],
+  labels: [' Health and Fitness Suite','Grass Pitches','Athletics Tracks','Tennis Courts','Artificial Grass Pitch','Golf','Sports Hall','Studio','Swimming Pool'],
+  type: 'pie'
+}, "Lambeth" : {
+  values: [16,16,0,12,5,1,29,2,5],
+  labels: [' Health and Fitness Suite','Grass Pitches','Athletics Tracks','Tennis Courts','Artificial Grass Pitch','Golf','Sports Hall','Studio','Swimming Pool'],
+  type: 'pie'
+}, "Lewisham" : {
+  values: [15,23,2,1,2,2,23,1,4],
+  labels: [' Health and Fitness Suite','Grass Pitches','Athletics Tracks','Tennis Courts','Artificial Grass Pitch','Golf','Sports Hall','Studio','Swimming Pool'],
+  type: 'pie'
+}, "Merton" : {
+  values: [14,34,1,4,3,5,25,2,9],
+  labels: [' Health and Fitness Suite','Grass Pitches','Athletics Tracks','Tennis Courts','Artificial Grass Pitch','Golf','Sports Hall','Studio','Swimming Pool'],
+  type: 'pie'
+}, "Newham" : {
+  values: [17,32,1,4,2,0,32,2,7],
+  labels: [' Health and Fitness Suite','Grass Pitches','Athletics Tracks','Tennis Courts','Artificial Grass Pitch','Golf','Sports Hall','Studio','Swimming Pool'],
+  type: 'pie'
+}, "Redbridge" : {
+  values: [16,49,1,2,3,0,26,4,6],
+  labels: [' Health and Fitness Suite','Grass Pitches','Athletics Tracks','Tennis Courts','Artificial Grass Pitch','Golf','Sports Hall','Studio','Swimming Pool'],
+  type: 'pie'
+}, "RichmonduponThames" : {
+  values: [20,42,2,2,3,8,34,1,11],
+  labels: [' Health and Fitness Suite','Grass Pitches','Athletics Tracks','Tennis Courts','Artificial Grass Pitch','Golf','Sports Hall','Studio','Swimming Pool'],
+  type: 'pie'
+}, "Southwark" : {
+  values: [18,31,0,4,2,2,31,3,11],
+  labels: [' Health and Fitness Suite','Grass Pitches','Athletics Tracks','Tennis Courts','Artificial Grass Pitch','Golf','Sports Hall','Studio','Swimming Pool'],
+  type: 'pie'
+}, "Sutton" : {
+  values: [18,24,0,3,1,5,41,1,6],
+  labels: [' Health and Fitness Suite','Grass Pitches','Athletics Tracks','Tennis Courts','Artificial Grass Pitch','Golf','Sports Hall','Studio','Swimming Pool'],
+  type: 'pie'
+}, "TowerHamlets" : {
+  values: [17,19,0,4,6,1,27,2,7],
+  labels: [' Health and Fitness Suite','Grass Pitches','Athletics Tracks','Tennis Courts','Artificial Grass Pitch','Golf','Sports Hall','Studio','Swimming Pool'],
+  type: 'pie'
+}, "WalthamForest" : {
+  values: [14,26,1,3,3,2,43,1,5],
+  labels: [' Health and Fitness Suite','Grass Pitches','Athletics Tracks','Tennis Courts','Artificial Grass Pitch','Golf','Sports Hall','Studio','Swimming Pool'],
+  type: 'pie'
+}, "Wandsworth" : {
+  values: [20,26,1,4,2,8,28,4,12],
+  labels: [' Health and Fitness Suite','Grass Pitches','Athletics Tracks','Tennis Courts','Artificial Grass Pitch','Golf','Sports Hall','Studio','Swimming Pool'],
+  type: 'pie'
+}, "Westminster" : {
+  values: [36,16,4,6,6,2,34,3,15],
+  labels: [' Health and Fitness Suite','Grass Pitches','Athletics Tracks','Tennis Courts','Artificial Grass Pitch','Golf','Sports Hall','Studio','Swimming Pool'],
+  type: 'pie'
+}};
 
 </script>
 
