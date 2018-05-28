@@ -11,10 +11,11 @@
         #map { position:absolute; top:0; bottom:0; width:100%; }
         .mapboxgl-ctrl-geocoder{
             position: absolute !important;
-            width: 33.3333% !important;
-            min-width: 640px !important;
-            max-width: 760px !important;
-            right: 450px !important;
+            z-index: 1 !important;
+            width: 50% !important;
+            min-width: 680px !important;
+            max-width: 780px !important;
+            right: 480px !important;
         }
     </style>
 </head>
@@ -90,14 +91,14 @@ map.addControl(new mapboxgl.NavigationControl());
 map.on('load', function () {
     map.addSource('All Facilities', {
         type: 'vector',
-        url: 'mapbox://aaron93.0j5uqfid'
+        url: 'mapbox://aaron93.5evd0rse'
     });
     map.addLayer({
         'id': 'All Facilities',
         'type': 'circle',
         'source': 'All Facilities',
-        'source-layer': 'Complete1-dmwlnf',
-        'layout': {
+        'source-layer': 'Opportunities-26jq2z',
+        'layout': { 
             'visibility': 'visible'
         },
         paint: {
@@ -125,7 +126,7 @@ map.on('load', function () {
 //////////////////////////////////////////////
 map.addSource('Gym & Leisure Activities', {
         type: 'vector',
-        url: 'mapbox://aaron93.89e3yb5n'
+        url: 'mapbox://aaron93.dnix0cwv'
     });
     map.addLayer({
         'id': 'Gym & Leisure Activities',
@@ -146,7 +147,7 @@ map.addSource('Gym & Leisure Activities', {
             
             
         },
-        'source-layer': 'Gym1GEO-1xwoyu',
+        'source-layer': 'Gym1-92790r',
         'circle-radius': {
             	property: 'EE2008',
             	stops: [
@@ -164,7 +165,7 @@ map.addSource('Gym & Leisure Activities', {
 ////////////////////////////////////
 map.addSource('Aquatic', {
         type: 'vector',
-        url: 'mapbox://aaron93.8t7y8j4l'
+        url: 'mapbox://aaron93.4dlarkow'
     });
     map.addLayer({
         'id': 'Aquatic',
@@ -181,7 +182,7 @@ map.addSource('Aquatic', {
 			 },
             'circle-color': '#6BBAFF'
         },
-        'source-layer': 'Aquatic1GEO-bo64rx',
+        'source-layer': 'Aquatic1-7j4kyu',
         'circle-radius': {
             	property: 'EE2008',
             	stops: [
@@ -197,7 +198,7 @@ map.addSource('Aquatic', {
 ////////////////////////////////////////////////////
 map.addSource('Ball Games', {
         type: 'vector',
-        url: 'mapbox://aaron93.3msj2grd'
+        url: 'mapbox://aaron93.cd6sx854'
     });
     map.addLayer({
         'id': 'Ball Games',
@@ -214,7 +215,7 @@ map.addSource('Ball Games', {
 			 },
             'circle-color': '#F7E811'
         },
-        'source-layer': 'Ball1GEO-b6a8n3',
+        'source-layer': 'Ball1-5mric8',
         'circle-radius': {
             	property: 'EE2008',
             	stops: [
@@ -230,7 +231,7 @@ map.addSource('Ball Games', {
 ////////////////////////////////////////////////////
 map.addSource('Combat Sports', {
         type: 'vector',
-        url: 'mapbox://aaron93.1qsyfxzg'
+        url: 'mapbox://aaron93.5iq28lhz'
     });
     map.addLayer({
         'id': 'Combat Sports',
@@ -247,7 +248,7 @@ map.addSource('Combat Sports', {
 			 },
             'circle-color': '#7618CA'
         },
-        'source-layer': 'Combat1Geo-4cbkum',
+        'source-layer': 'Combat1-5l75r2',
         'circle-radius': {
             	property: 'EE2008',
             	stops: [
@@ -263,7 +264,7 @@ map.addSource('Combat Sports', {
 ////////////////////////////////////////////////////
 map.addSource('Outdoor Activities', {
         type: 'vector',
-        url: 'mapbox://aaron93.9cnfwowl'
+        url: 'mapbox://aaron93.25497yn5'
     });
     map.addLayer({
         'id': 'Outdoor Activities',
@@ -280,7 +281,7 @@ map.addSource('Outdoor Activities', {
 			 },
             'circle-color': '#63CA18'
         },
-        'source-layer': 'Outdoor1Geo-1jjni0',
+        'source-layer': 'Outdoor1-1zp5p7',
         'circle-radius': {
             	property: 'EE2008',
             	stops: [
@@ -335,7 +336,7 @@ var mypopup = new mapboxgl.Popup({offset:[0,-10],closeButton: false});
 map.on('mouseover', 'All Facilities', function (e) {
         mypopup
             .setLngLat(e.features[0].geometry.coordinates)
-            .setHTML("<h3>" + e.features[0].properties.SiteName+ "</h3>Facilities: " + e.features[0].properties.SiteEquipmentName + "<br />Main Activities: " + e.features[0].properties.ActivityName + "<br />Opening Time: " + e.features[0].properties.StartTime + "<br />Closing Time: " + e.features[0].properties.EndTime + "<br />Site ID: " + e.features[0].properties.SiteID + "<br />Local Authority: " + e.features[0].properties.LocalAuthorityName )
+            .setHTML("<h3>" + e.features[0].properties.SiteName+ "</h3>Facilities: " + e.features[0].properties.FacilityType + "<br />Main Activities: " + e.features[0].properties.ActivityName + "<br />Opening Time: " + e.features[0].properties.StartTime + "<br />Closing Time: " + e.features[0].properties.EndTime + "<br />Site ID: " + e.features[0].properties.SiteID + "<br />Local Authority: " + e.features[0].properties.LocalAuthorityName )
             .addTo(map);
     });
 
@@ -377,7 +378,7 @@ map.addControl(new MapboxGeocoder({
 map.on('mouseover', 'Gym & Leisure Activities', function (e) {
         mypopup
             .setLngLat(e.features[0].geometry.coordinates)
-            .setHTML("<h3>" + e.features[0].properties.SiteName+ "</h3>Facilities: " + e.features[0].properties.SiteEquipmentName + "<br />Main Activities: " + e.features[0].properties.ActivityName + "<br />Opening Time: " + e.features[0].properties.StartTime + "<br />Closing Time: " + e.features[0].properties.EndTime + "<br />Site ID: " + e.features[0].properties.SiteID + "<br />Local Authority: " + e.features[0].properties.LocalAuthorityName )
+            .setHTML("<h3>" + e.features[0].properties.SiteName+ "</h3>Facilities: " + e.features[0].properties.FacilityType + "<br />Main Activities: " + e.features[0].properties.ActivityName + "<br />Opening Time: " + e.features[0].properties.StartTime + "<br />Closing Time: " + e.features[0].properties.EndTime + "<br />Site ID: " + e.features[0].properties.SiteID + "<br />Local Authority: " + e.features[0].properties.LocalAuthorityName )
             .addTo(map);
     });
 
@@ -419,7 +420,7 @@ map.addControl(new MapboxGeocoder({
 map.on('mouseover', 'Aquatic', function (e) {
         mypopup
             .setLngLat(e.features[0].geometry.coordinates)
-            .setHTML("<h3>" + e.features[0].properties.SiteName+ "</h3>Facilities: " + e.features[0].properties.SiteEquipmentName + "<br />Main Activities: " + e.features[0].properties.ActivityName + "<br />Opening Time: " + e.features[0].properties.StartTime + "<br />Closing Time: " + e.features[0].properties.EndTime + "<br />Site ID: " + e.features[0].properties.SiteID + "<br />Local Authority: " + e.features[0].properties.LocalAuthorityName )
+            .setHTML("<h3>" + e.features[0].properties.SiteName+ "</h3>Facilities: " + e.features[0].properties.FacilityType + "<br />Main Activities: " + e.features[0].properties.ActivityName + "<br />Opening Time: " + e.features[0].properties.StartTime + "<br />Closing Time: " + e.features[0].properties.EndTime + "<br />Site ID: " + e.features[0].properties.SiteID + "<br />Local Authority: " + e.features[0].properties.LocalAuthorityName )
             .addTo(map);
     });
 
@@ -465,7 +466,7 @@ map.addControl(new MapboxGeocoder({
 map.on('mouseover', 'Ball Games', function (e) {
         mypopup
             .setLngLat(e.features[0].geometry.coordinates)
-            .setHTML("<h3>" + e.features[0].properties.SiteName+ "</h3>Facilities: " + e.features[0].properties.SiteEquipmentName + "<br />Main Activities: " + e.features[0].properties.ActivityName + "<br />Opening Time: " + e.features[0].properties.StartTime + "<br />Closing Time: " + e.features[0].properties.EndTime + "<br />Site ID: " + e.features[0].properties.SiteID + "<br />Local Authority: " + e.features[0].properties.LocalAuthorityName )
+            .setHTML("<h3>" + e.features[0].properties.SiteName+ "</h3>Facilities: " + e.features[0].properties.FacilityType+ "<br />Main Activities: " + e.features[0].properties.ActivityName + "<br />Opening Time: " + e.features[0].properties.StartTime + "<br />Closing Time: " + e.features[0].properties.EndTime + "<br />Site ID: " + e.features[0].properties.SiteID + "<br />Local Authority: " + e.features[0].properties.LocalAuthorityName )
             .addTo(map);
     });
 
@@ -509,7 +510,7 @@ map.addControl(new MapboxGeocoder({
 map.on('mouseover', 'Combat Sports', function (e) {
         mypopup
             .setLngLat(e.features[0].geometry.coordinates)
-            .setHTML("<h3>" + e.features[0].properties.SiteName+ "</h3>Facilities: " + e.features[0].properties.SiteEquipmentName + "<br />Main Activities: " + e.features[0].properties.ActivityName + "<br />Opening Time: " + e.features[0].properties.StartTime + "<br />Closing Time: " + e.features[0].properties.EndTime + "<br />Site ID: " + e.features[0].properties.SiteID + "<br />Local Authority: " + e.features[0].properties.LocalAuthorityName )
+            .setHTML("<h3>" + e.features[0].properties.SiteName+ "</h3>Facilities: " + e.features[0].properties.FacilityType + "<br />Main Activities: " + e.features[0].properties.ActivityName + "<br />Opening Time: " + e.features[0].properties.StartTime + "<br />Closing Time: " + e.features[0].properties.EndTime + "<br />Site ID: " + e.features[0].properties.SiteID + "<br />Local Authority: " + e.features[0].properties.LocalAuthorityName )
             .addTo(map);
     });
 
@@ -554,7 +555,7 @@ map.addControl(new MapboxGeocoder({
 map.on('mouseover', 'Outdoor Activities', function (e) {
         mypopup
             .setLngLat(e.features[0].geometry.coordinates)
-            .setHTML("<h3>" + e.features[0].properties.SiteName+ "</h3>Facilities: " + e.features[0].properties.SiteEquipmentName + "<br />Main Activities: " + e.features[0].properties.ActivityName + "<br />Opening Time: " + e.features[0].properties.StartTime + "<br />Closing Time: " + e.features[0].properties.EndTime + "<br />Site ID: " + e.features[0].properties.SiteID + "<br />Local Authority: " + e.features[0].properties.LocalAuthorityName )
+            .setHTML("<h3>" + e.features[0].properties.SiteName+ "</h3>Facilities: " + e.features[0].properties.FacilityType+ "<br />Main Activities: " + e.features[0].properties.ActivityName + "<br />Opening Time: " + e.features[0].properties.StartTime + "<br />Closing Time: " + e.features[0].properties.EndTime + "<br />Site ID: " + e.features[0].properties.SiteID + "<br />Local Authority: " + e.features[0].properties.LocalAuthorityName )
             .addTo(map);
     });
 
